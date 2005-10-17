@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     02/08/2004 20:16:34                                                        
+
+     EasyAccept    
+     Framework to write and execute acceptance tests
+                   
+     jacques                                                                
+     ====================================================================== -->
+<project name="EasyAccept" default="all">
+	<description>
+            Framework to write and execute acceptance tests
+    </description>
+
+	<property name="home" value="." />
+	<property name="source" value="${home}/src" />
+	<property name="lib" value="${home}/lib" />
+	<property name="classes" value="${home}/bin" />
+	<property name="easyacceptjar" value="${lib}/easyaccept.jar" />
+	<property name="junit" value="${lib}/junit.jar" />
+
+	<!-- ================================= 
+          target: all              
+         ================================= -->
+	<target name="all" depends="compile" description="--> Framework to write and execute acceptance tests">
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${classes}"/>
+		<javac srcdir="${source}" destdir="${classes}" source="1.4" target="1.4" debug="true" optimize="on" excludes="tests/**">
+			<classpath>
+				<pathelement path="${junit}" />
+			</classpath>
+		</javac>
+	</target>
+	<target name="jar">
+		<jar destfile="${easyacceptjar}" basedir="${classes}">
+			<!-- ================================= 
+			<fileset dir="${resources}">
+			</fileset>
+	         ================================= -->
+		</jar>
+	</target>
+</project>
+
