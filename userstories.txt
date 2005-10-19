@@ -1,0 +1,124 @@
+-----------------------------
+
+User Story: XXX
+Title:
+Description:
+Acceptance Test:
+
+----------------------------
+
+User Story: 001
+Title: Capture/repaly funcionality
+Description:
+EastAccept should generate test scripts when a client is using the System 
+under Test (SUT). EasyAccept should capture clients actions and record 
+those actions in a "easyaccept script format". The generated script should used to
+repeat the same test.
+Acceptance Test:
+
+-----------------------------
+
+User Story: 003
+Title: Choose log format
+Description:
+fornecer um meios de escolher a formatacao de mensagens (como log4J)
+Acceptance Test:
+
+-----------------------------
+
+User Story: 004
+Title: Exception Handling of Facade methods
+Description:
+When Easyaccept calls a method from a Facade and this method throws an unexpected exception,
+EasyAccept does not report were the exception had ocurred. 
+ex:
+Command: <rollDice firstDieResult="1"(java.lang.Byte)
+secondDieResult="1"(java.lang.Byte)>, produced error: <This place
+can't be sold>
+EasyAccept should show the line of code where this excetion had ocurred 
+(and ,possibly, he line of scritp test that generates this error).
+
+Acceptance Test:
+
+-----------------------------
+
+User Story: 006
+Title: A method should receive a collections of strings as argument in scripts.
+Description:
+In EasyAccept scripts we should pass collections of strings as parameters.
+According (for example) to the following syntax: command param={ abc, "def, ghi", "{"}
+Acceptance Test:
+
+-----------------------------
+
+User Story: 007
+Title: A method should return a collections of strings as argument in scripts.
+Description:
+In the current implementation, a command can only return a simple string. 
+A command should retur a collection of strings, the expected string
+should have the syntax param={ s1, "s2, ", "{"}
+Where s1 is the string representing the first object in the collection, etc.
+Since EasyAccept expected results with actual results, the collections (a clss that implements Java Collection interface) returned by
+Facade methods should be converted to this same syntax (or vice-versa), to allow the 
+comparison between "expected results" and "returned results".
+For example:
+		expect {"John Doe","Mary Stuart"} getUserNames age=20
+In this case, the getUserNames command returns a collection.
+
+Acceptance Test:
+
+-----------------------------
+
+User Story: 008
+Title: Improve Javadoc Comments
+Description:
+Enrich javadoc comments in EasyAccept code. 
+Acceptance Test:
+
+-----------------------------
+
+
+User Story: 009
+Title: --> I DID NOT UNDERSTAND THIS USER STORY :-(
+Description:
+TODO treatment of collection can be better by extracting an attribute from
+		each object in a returned collection
+		example:
+		expect {"John Doe","Mary Stuart"} whenExtractingAttribute attribute=name getStudents class="abc"
+another possible syntax
+		expect {"John Doe","Mary Stuart"} getStudents.name class="abc"
+Acceptance Test:
+
+-----------------------------
+
+User Story: 010
+Title: Creat a print command
+Description:
+The print command should simply execute a command and prints the returned result.
+Acceptance Test:
+
+-----------------------------
+
+User Story: 011
+Title: make test management easier
+Description:
+Test definition, packaging, execution, traceability, creation, etc. should more user friendly.
+(this user story must be expanded)
+Acceptance Test:
+
+----------------------------
+
+User Story: 012
+Title: using beans
+Description:
+make using beans easy in easyaccept (as parameters, return values, script variables, etc.)
+In other words, there are advantages to having a façade deal with beans and not only native data
+since many modelues such as JSP, etc. can interface to a facade easier by dealing with beans
+This should be available as return values, parameters, script variables, ...
+Possible syntax
+		expect "John Doe" getStudent.name id=${id1}
+		student=getStudent id=${id1}
+		expect "John Doe" ${student}.name
+Acceptance Test:
+
+----------------------------

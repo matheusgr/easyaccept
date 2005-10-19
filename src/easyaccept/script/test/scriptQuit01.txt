@@ -1,0 +1,2 @@
+quit
+expect HELLO commandReturningString param1=hello

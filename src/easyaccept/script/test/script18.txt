@@ -1,0 +1,5 @@
+# null parameter test
+expect a returnParam param=a
+expect a returnParam a
+expect null returnParam param=
+expect "" returnParam param=""

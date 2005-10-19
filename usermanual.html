@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>EasyAccept&#150;A Tool to Create Acceptance Tests in Java</title>
+<style>
+<!--
+.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" class="Normal" lang="EN-US">
+<div class="Section1">
+
+<h1 align="center" style="text-align:center">EasyAccept &#150; A Tool to Create Acceptance
+Tests in Java</h1>
+
+<h1 align="center" style="text-align:center">User Manual</h1>
+
+<p>Version 0.9</p>
+
+<p>July 4, 2005 </p>
+
+<h1>Requirements</h1>
+
+<p>EasyAccept is a tool developed to help development teams create acceptance tests. Such
+tests are black box and aim to capture the functional requirements for a software system
+as expressed by a client. A client is typically a non-IT person with a need to be solved
+through a software system. EasyAccept is being developed with the following requirements
+in mind: 
+
+<ul type="disc">
+  <li>It should be easy for a client to write acceptance tests him or herself. Since knowing
+    what to test needs some training (e.g. to test limit conditions, etc.), this task will
+    usually be performed together with an experienced software person. </li>
+  <li>Even if a software person helps a client to write tests, the client must be able to
+    thoroughly understand the written tests without any help (after learning a bit about test
+    language syntax). </li>
+  <li>EasyAccept should be reasonably easy to retrofit into existing software, as long as
+    business logic has been separated from user interface considerations in the software to be
+    tested. </li>
+  <li>It should be easy to automate the execution of acceptance tests. </li>
+  <li>It should be easy to test error conditions and non-error conditions. </li>
+</ul>
+
+<h1>Basic Decisions</h1>
+
+<p>In order to satisfy the above requirements, the following decisions were taken: 
+
+<ul type="disc">
+  <li>Tests are written using a simple script language. A script can call business logic and
+    check that it produces the proper output. </li>
+  <li>The script language is <i>not</i> object-oriented. It seems easier not to burden the
+    client with the notion of objects, encapsulation, state, etc. </li>
+</ul>
+
+<h1>Internal Commands</h1>
+
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top" bgcolor="#0C0C0C" class="Normal"><pre><b><span
+style="font-family:Verdana">&nbsp;COMMAD</span></b></pre>
+    </td>
+    <td valign="top" bgcolor="#0C0C0C" class="Normal"><pre><b><span
+style="font-family:Verdana">&nbsp;DESCRIPTION</span></b></pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>stringDelimiter </b></pre>
+    </td>
+    <td valign="top" class="Normal">Built-in command which changes the string delimiter to the
+    given delimiter. By default, the string delimiter is &quot;.</td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>expect</b></pre>
+    </td>
+    <td valign="top" class="Normal">Built-in command which is used to check that a (business
+    logic) command worked correctly.</td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>expectError</b></pre>
+    </td>
+    <td valign="top" class="Normal">Built-in command which is used to check error conditions
+    of a (business logic) command.</td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>equalFiles</b></pre>
+    </td>
+    <td valign="top" class="Normal">Built-in command which compares two files.</td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>stackTrace</b></pre>
+    </td>
+    <td valign="top" class="Normal">Built-in command which is used to obtain a stack trace
+    when debugging. This is useful when unexpected exceptions occur and one wishes a stack
+    trace to see what is happening.</td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><strong>quit</strong></pre>
+    </td>
+    <td valign="top" class="Normal">Built-in command to quit EasyAccept</td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><strong><pre>echo</pre>
+    </strong></td>
+    <td valign="top" class="Normal">Built-in command that returns the concatenation of its
+    parameters</td>
+  </tr>
+</table>
+
+<h1>Examples</h1>
+
+<h2>Executing business logic</h2>
+
+<p>A script is written in a text file. A command is written on a single line. A command is
+simply executed. For example:</p>
+
+<pre>createUser key=key1 name=&quot;John Doe&quot; birthdate=1957/02/04</pre>
+
+<p>will simply call the createUser business method passing three parameters to it.</p>
+
+<h2>Checking business logic execution</h2>
+
+<p>Special built-in commands can be used to check that a (business logic) command worked
+correctly. For example:</p>
+
+<pre>createUser key=key1 name=&quot;John Doe&quot; birthdate=1957/02/04</pre>
+
+<pre>expect &quot;John Doe&quot; getUserName key=key1</pre>
+
+<p>In the above two lines, the first line calls a business logic command. EasyAccept will
+accept that it has functioned correctly if it does not produce an error (an Exception, in
+programmer parlance). The next line also calls business logic (getUserName with parameter
+key1) but checks that it returned the string &#147;John Doe&#148;.</p>
+
+<h2>Using variables</h2>
+
+<p>It is sometimes necessary to obtain the result returned by a command in order to use it
+in the test script. For example, suppose that the <font face="Courier New">createUser</font>
+command chooses a record key internally (say a database OID) that is unknown to the
+tester. The following script shows how to deal with the situation using variables
+(assuming that <font face="Courier New">createUser</font> returns the chosen record key):</p>
+
+<pre>key=createUser name=&quot;John Doe&quot; birthdate=1957/02/04</pre>
+
+<pre>expect &quot;John Doe&quot; getUserName key=${key}</pre>
+
+<p>The syntax <font face="Courier New">${varName}</font> is substituted by the variable's
+value.</p>
+<p>The scope of a variable is the script file in which it is defined.</p>
+
+<h2>Checking error conditions</h2>
+
+<p>A special built-in command can be used to check that a (business logic) command
+produces an error (using an exception). For example:</p>
+
+<pre>expectError &quot;Unacceptable date.&quot; createUser name=&quot;John Doe&quot; birthdate=1957/02/20</pre>
+
+<p>In the above line, a business logic command is called (createUser). EasyAccept will
+accept that it has functioned correctly if it produces an error (an Exception, in
+programmer parlance) and if the Exception's error message is &quot;Unacceptable
+date.&quot;</p>
+
+<h2>Checking voluminous output</h2>
+
+<p>When you want to use the expect built-in command but the string to be checked is large,
+it may be better to leave the string in a text file and have the business logic command
+produce output in another file. Then, the built-in command equalFiles can be used to check
+the command's output. </p>
+
+<pre># this shows that John Doe exists
+expect &quot;John Doe&quot; getUserName key=${key1}
+produceReport key=${key1} outputFile=rep.txt
+equalFiles file1=expected-report.txt file2=rep.txt</pre>
+
+<p>In the above example, the command produceReport will produce a report concerning John
+Doe and the report will be left in file rep.txt. The next line checks that the rep.txt
+file is equal to the expected-report.txt file. This last file (the expected report) should
+be produced beforehand (by hand, for example) and should contain exactly the output
+desired for the produceReport command. </p>
+
+<h2>Debugging</h2>
+
+<p>When any command produces an unexpected exception and you would like to examine a stack
+trace of the situation that led to the exception, use the stacktrace command as shown
+below. </p>
+
+<pre># the following command produces an exception
+someCommand param=someValue
+</pre>
+
+<p>In this case, in order to see details of the exception that was produced, temporarily
+use the following command during debugging: </p>
+
+<pre># the following command produces an exception
+stackTrace someCommand param=someValue
+</pre>
+
+<h1>The language</h1>
+
+<p>A script resides in a file. Each line consists of name=value pairs. The following are
+examples of acceptable name=value pairs:</p>
+
+<pre>name=value</pre>
+
+<pre>value</pre>
+
+<pre>name=</pre>
+
+<pre>name=&quot;&quot;</pre>
+
+<pre>=value</pre>
+
+<p>In the second case, there is no name; in the third case, the value is null; in the fourth case, the value is
+empty; the fifth case is illegal.</p>
+
+<p>In a line, the first name-value pair represents a command to be executed (the value).
+If a name is given, then that variable name will receive the value returned by the
+command. The command must match a method available in the business logic. Parameters are
+passed as given in the other name=value pairs. In reality, since Java does not provide
+parameter names through reflection, the order of the parameters in the test must match the
+order in the business logic. The names themselves (to the left of the = sign) are not used
+and serve only as documentation in the tests. <i>Remember that the parameter order is
+important</i>. A method appropriate to the parameter types given will be found in the
+business logic. The following parameter types are acceptable and automatic conversion will
+be provided from a string to the parameter value of appropriate type: 
+
+<ul>
+  <li>String</li>
+  <li>boolean</li>
+  <li>char</li>
+  <li>byte</li>
+  <li>short</li>
+  <li>int</li>
+  <li>long</li>
+  <li>float</li>
+  <li>double</li>
+</ul>
+
+<p>A line starting with # is a comment. The line continuation character is \. A \
+character itself must be given as \\.</p>
+
+<p>The default string delimiter is &quot;. This may be changed (see below).</p>
+
+<h2>Built-in commands</h2>
+
+<p>EasyAccept has several built-in commands used to perform special testing actions. They
+are described below.</p>
+
+<h3>echo</h3>
+
+<p><font face="Courier New">echo any string</font></p>
+
+<p>This command returns the concatenation of its arguments. It is typically used to
+examine command results, variable names, etc.</p>
+
+<h3>equalFiles</h3>
+
+<pre>equalfiles OKfile fileToTest</pre>
+
+<p>This command is a test of file contents. It receives two files, and the test passes if
+the two files have identical contents. By convention, the first file contains the correct
+(expected) output and the second file contains the file to be tested. This command is
+typically used after a business logic command that has produced its output in a file.
+There are two ways of using <i>equalfiles</i> command:</p>
+
+<p>1) With Relative path (relative to directory where EasyAccept is executed)</p>
+
+<pre>equalfiles ./src/easyaccept/script/test/script1.txt ./src/easyaccept/script/test/script1.txt</pre>
+
+<p>2) With AbsolutePath:</p>
+
+<pre>equalfiles c:/projetos/script1.txt c:/script2.txt</pre>
+
+<h3>expect</h3>
+
+<pre>expect expectedString businessLogicCommand paramName=paramValue ...</pre>
+
+<p>This command executes the businessLogicCommand passing the specified parameters. The
+businessLogicCommand must return a string which is compared with expectedString. The test
+passes if the strings are equal. No errors (exceptions) may occur.</p>
+
+<h3>expectError</h3>
+
+<pre>expectError expectedErrorString businessLogicCommand paramName=paramValue ...</pre>
+
+<p>This command executes the businessLogicCommand passing the specified parameters. The
+businessLogicCommand must return an error (produce an exception, in Java) using an error
+string. This string is compared with expectedErrorString. The test passes if the strings
+are equal. If no exceptions are thrown, the test does not pass.</p>
+
+<h3>stackTrace</h3>
+
+<pre>stackTrace &lt;any other command, including built-in commands&gt;</pre>
+
+<p>This command executes the command indicated and, if an exception is thrown, a full
+stack trace is printed. This is useful for debugging and will not normally be used
+permamently in scripts. </p>
+
+<h3>stringDelimiter delimiter</h3>
+
+<pre>stringDelimiter delimiter_character</pre>
+
+<p>This command changes the string delimiter to the given character. By default, the
+string delimiter is &quot;.</p>
+
+<h3>quit</h3>
+
+<pre>quit</pre>
+
+<p>This command ends EasyAccept execution.</p>
+
+<h1>Instructions for the Programmer</h1>
+
+<p>In order to expose the business logic of your program, you must write a façade.
+EasyAccept will instantiate the façade once and all public methods contained in the
+façade will be callable from a test script. Remember to separate the business logic from
+the user interface. Your façade should not print anything anywhere. It should communicate
+itself with the outside by accepting parameters, returning results or throwing exceptions.
+Parameters and return values cannot be objects.</p>
+
+<p>In order to call EasyAccept to test a program, use the following syntax:</p>
+
+<pre>&nbsp;&nbsp;&nbsp;&nbsp; java -classpath ... easyaccept.EasyAccept &lt;FacadeClass&gt; &lt;scriptFile&gt; [&lt;scriptFile&gt;] ...</pre>
+
+<p><span lang="PT-BR">where: </span>
+
+<ul type="disc">
+  <li>&lt;FacadeClass&gt; - corresponds to the full class name (ex:
+    easyaccept.script.TestFacade) of facade of he system to be tested. </li>
+  <li>&lt;scriptFile&gt; - corresponds to the full name of a file or a directory. If the
+    argument is a file, it can have any extension and should be composed by test commands
+    written in EasyAccept script language. However, if it is not a EasyAccept script,
+    EasyAccept will still try to execute each line of the file &#150; resulting in many
+    errors. If the argument is a directory, EasyAccept will look for all files in this
+    directory and its subdirectories, include them in a queue and execute all test commands of
+    each file found. </li>
+</ul>
+
+<p>A EasyAccept exit code of 0 implies that all tests have passed.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+throwAnUnexpectedException throwIt=false
+throwAnUnexpectedException throwIt=true
+stackTrace throwAnUnexpectedException throwIt=false
+stackTrace throwAnUnexpectedException throwIt=true
+stackTrace expect "return string" throwAnUnexpectedException throwIt=false
+stackTrace expect "return string" throwAnUnexpectedException throwIt=true
+stackTrace expectError "" throwAnUnexpectedException throwIt=false
+stackTrace expectError null throwAnUnexpectedException throwIt=true

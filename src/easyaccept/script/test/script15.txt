@@ -1,0 +1,3 @@
+d=expect HELLO c=commandReturningString param1=hello
+expect ${c} commandReturningString param1=hello
+expect "Result is OK" echo Result is ${d}

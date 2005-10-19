@@ -1,0 +1,9 @@
+a=""
+b="hello"
+
+  
+c="hello world"
+d="hello world "  
+  e=" hello world "   
+f="a  \
+  b"

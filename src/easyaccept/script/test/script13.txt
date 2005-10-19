@@ -1,0 +1,2 @@
+a=commandReturningString param1=hello
+expect ${a} commandReturningString param1=hello

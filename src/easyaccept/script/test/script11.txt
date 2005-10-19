@@ -1,0 +1,4 @@
+commandManyParameters param1=hello param2=hellow
+commandManyParametersNum param1=123 param2=456
+expect 123456 commandManyParametersNum param1=123 param2=456
+expect 5 commandManyParametersPrimitive param1=2 param2=3

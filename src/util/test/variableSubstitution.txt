@@ -1,0 +1,6 @@
+a=command1
+command2 p1=a p2=${a}
+command3 p1=a p2=${a
+command4 p1=a p2=\${a}
+command5 p1=a p2=${b}
+command5 p1=a p2=${b}

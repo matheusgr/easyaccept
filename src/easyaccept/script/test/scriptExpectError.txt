@@ -1,0 +1,1 @@
+expectError "error just a phrase" decideToThrow param=true

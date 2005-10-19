@@ -14,16 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>bin</name>
-			<type>2</type>
-			<location>C:/cvstemp/bin</location>
-		</link>
-		<link>
-			<name>src</name>
-			<type>2</type>
-			<location>C:/cvstemp/src</location>
-		</link>
-	</linkedResources>
 </projectDescription>

@@ -1,0 +1,2 @@
+a=commandReturningInt param1=46
+expect 47 echo ${a}

@@ -1,0 +1,2 @@
+equalfiles ./src/easyaccept/script/test/script1.txt ./src/easyaccept/script/test/script1.txt
+equalfiles ./src/easyaccept/script/test/script1.txt ./src/easyaccept/script/test/script2.txt
