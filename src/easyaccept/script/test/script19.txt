@@ -1,0 +1,1 @@
+a=commandReturningString param1=hello

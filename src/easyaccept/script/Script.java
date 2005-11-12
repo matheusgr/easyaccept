@@ -46,8 +46,10 @@ import easyaccept.QuitSignalException;
  *   
  *    
  *     
- *          expect &quot;string&quot; command ...
- *          stringdelimiter delimiter
+ *      
+ *           expect &quot;string&quot; command ...
+ *           stringdelimiter delimiter
+ *       
  *      
  *     
  *    
@@ -99,7 +101,54 @@ public class Script implements MultiFileReaderObserver {
 	 * the same syntax as the script file when reporting errors.
 	 */
 	private char stringDelimiter;
-	
+
+	/**
+	 * Construct a Script object. This should be done for each script file to be
+	 * executed.
+	 * 
+	 * @param fileName
+	 *            The name of the file containing the test script.
+	 * @param facade
+	 *            The facade object giving access to the functionality of the
+	 *            software to be tested
+	 * @param variables
+	 *            The Map to hold script variables during execution
+	 * @throws FileNotFoundException
+	 * @throws EasyAcceptException
+	 *             if the facade object was not given.
+	 * @throws FileNotFoundException
+	 *             if the script file cannot be found.
+	 * @throws EasyAcceptException
+	 * @throws EasyAcceptInternalException
+	 */
+	public Script(String fileName, Object facade, Map variables)
+			throws FileNotFoundException, EasyAcceptException,
+			EasyAcceptInternalException {
+		MultiFileReader mfReader = new MultiFileReader();
+
+		plr = new ParsedLineReader(new LogicalLineReader(mfReader,
+				EasyAcceptSyntax.defaultComment,
+				EasyAcceptSyntax.defaultContinuation),
+				EasyAcceptSyntax.defaultStringDelimiter,
+				EasyAcceptSyntax.defaultEscapeCharacter, variables);
+
+		setStringDelimiter(EasyAcceptSyntax.defaultStringDelimiter);
+		mfReader.addMultiFileReaderObserver(plr);
+		mfReader.addMultiFileReaderObserver(this);
+
+		try {
+			plr.addFile(fileName);
+		} catch (FileNotFoundException e) {
+			throw new FileNotFoundException("File not found: " + fileName);
+		}
+		if (facade == null) {
+			throw new EasyAcceptException("Facade can't be null");
+		}
+		this.facade = facade;
+		this.results = null;
+		initInternalCommands();
+	}
+
 	/**
 	 * Construct a Script object. This should be done for each script file to be
 	 * executed.
@@ -116,28 +165,7 @@ public class Script implements MultiFileReaderObserver {
 	 */
 	public Script(String fileName, Object facade) throws EasyAcceptException,
 			FileNotFoundException, EasyAcceptInternalException {
-
-		MultiFileReader mfReader = new MultiFileReader();
-
-		plr = new ParsedLineReader (new LogicalLineReader(mfReader, EasyAcceptSyntax.defaultComment,EasyAcceptSyntax.defaultContinuation),
-				EasyAcceptSyntax.defaultStringDelimiter,
-				EasyAcceptSyntax.defaultEscapeCharacter);
-	
-		setStringDelimiter(EasyAcceptSyntax.defaultStringDelimiter);
-		mfReader.addMultiFileReaderObserver(plr);
-		mfReader.addMultiFileReaderObserver(this);
-
-		try {
-			plr.addFile(fileName);
-		} catch (FileNotFoundException e) {
-			throw new FileNotFoundException("File not found: " + fileName);
-		}
-		if (facade == null) {
-			throw new EasyAcceptException("Facade can't be null");
-		}
-		this.facade = facade;
-		this.results = null;
-		initInternalCommands();
+		this(fileName, facade, new HashMap());
 	}
 
 	/**
@@ -191,14 +219,18 @@ public class Script implements MultiFileReaderObserver {
 	 * 
 	 * @return a {@link Result}indicating the result of the command's
 	 *         execution.
-	 * @throws IOException if IO errors occur while reading the script.
-	 * @throws ParsingException if syntax errors are discovered in the script.
-	 * @throws QuitSignalException if 'quit' command was found
+	 * @throws IOException
+	 *             if IO errors occur while reading the script.
+	 * @throws ParsingException
+	 *             if syntax errors are discovered in the script.
+	 * @throws QuitSignalException
+	 *             if 'quit' command was found
 	 * 
 	 * @throws EasyAcceptException
 	 *             if syntax errors are discovered in the script.
 	 */
-	public Result getAndExecuteCommand() throws IOException, ParsingException, QuitSignalException {
+	public Result getAndExecuteCommand() throws IOException, ParsingException,
+			QuitSignalException {
 		ParsedLine parsedLine = plr.getParsedLine();
 		return executeCommand(parsedLine);
 	}
@@ -224,13 +256,15 @@ public class Script implements MultiFileReaderObserver {
 			} catch (IllegalAccessException ex) {
 				cause = ex;
 			} catch (Exception ex) {
-				//            	//TODO (todolist) Not nice to use catch Exception, too dangerous
-				// should only catch the particular exceptions we're interested in
+				//            	//TODO (todolist) Not nice to use catch Exception, too
+				// dangerous
+				// should only catch the particular exceptions we're interested
+				// in
 				cause = ex;
 			}
 			// handle variables
 			String varName = parsedLine.getParameter(0).getName();
-			if(varName != null && cause == null) {
+			if (varName != null && cause == null) {
 				setVariable(varName, result);
 			}
 			return new Result(parsedLine.getCommandString(stringDelimiter),
@@ -294,11 +328,12 @@ public class Script implements MultiFileReaderObserver {
 
 		assert parsedLine.numberOfParameters() > 0;
 
-		if (!method.getName().equals(parsedLine.getParameter(0).getValueAsString())) {
+		if (!method.getName().equals(
+				parsedLine.getParameter(0).getValueAsString())) {
 			return false;
 		}
 		if (parameters.length != parsedLine.numberOfParameters() - 1) {
-//						System.err.println("no match: number of parameters");
+			//						System.err.println("no match: number of parameters");
 			return false;
 		}
 
@@ -319,13 +354,18 @@ public class Script implements MultiFileReaderObserver {
 	 * Execute the whole script.
 	 * 
 	 * @return true if there were no errors; otherwise, returns false.
-	 * @throws IOException   if IO errors occur while reading the script.
-	 * @throws ParsingException if syntax errors are discovered while parsing the script.
-	 * @throws EasyAcceptException if syntax errors are discovered while trying to execute commands, or the "quit" command was found.
-	 * @throws 
+	 * @throws IOException
+	 *             if IO errors occur while reading the script.
+	 * @throws ParsingException
+	 *             if syntax errors are discovered while parsing the script.
+	 * @throws EasyAcceptException
+	 *             if syntax errors are discovered while trying to execute
+	 *             commands, or the "quit" command was found.
+	 * @throws
 	 * @throws IOException
 	 */
-	public boolean executeAndCheck() throws EasyAcceptException, IOException, ParsingException {
+	public boolean executeAndCheck() throws EasyAcceptException, IOException,
+			ParsingException {
 		execute();
 		return check();
 	}
@@ -349,7 +389,8 @@ public class Script implements MultiFileReaderObserver {
 		return numberOfErrors() == 0;
 	}
 
-	private void execute() throws EasyAcceptException, IOException, ParsingException {
+	private void execute() throws EasyAcceptException, IOException,
+			ParsingException {
 		this.results = new ArrayList();
 		Result oneResult;
 		while ((oneResult = getAndExecuteCommand()) != null) {
@@ -440,9 +481,11 @@ public class Script implements MultiFileReaderObserver {
 	}
 
 	/**
-	 * Returns the value of the variable names varName.
-	 * Variable varName is set when a line like varName=command ... is executed. 
-	 * @param varName The name of the variable whose value is sought
+	 * Returns the value of the variable names varName. Variable varName is set
+	 * when a line like varName=command ... is executed.
+	 * 
+	 * @param varName
+	 *            The name of the variable whose value is sought
 	 * @return
 	 */
 	public String getVariableValue(String varName) {

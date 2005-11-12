@@ -1,6 +1,8 @@
 package easyaccept.script;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.TestCase;
 import util.ParsingException;
@@ -382,5 +384,23 @@ public class TestScript extends TestCase {
 			assertFalse(""+i, result.hasError());
 			assertEquals("OK", result.getResult());
 		}
+	}
+	public void testVariableSubstitutionInTwoStreams() throws EasyAcceptException, EasyAcceptInternalException, QuitSignalException, IOException, ParsingException {
+		Map variables = new HashMap();
+		Script script1 = new Script("src/easyaccept/script/test/script19.txt",
+				new TestFacade(), variables);
+		Result result = script1.getAndExecuteCommand();
+		assertNotNull(result);
+		assertEquals("a=commandReturningString param1=hello", result.getCommand());
+		assertFalse(result.hasError());
+		assertEquals("HELLO", script1.getVariableValue("a"));
+
+		Script script2 = new Script("src/easyaccept/script/test/script20.txt",
+				new TestFacade(), variables);
+		result = script2.getAndExecuteCommand();
+		assertNotNull(result);
+		assertEquals("expect HELLO commandReturningString param1=hello", result
+				.getCommand());
+		assertFalse(result.hasError());
 	}
 }

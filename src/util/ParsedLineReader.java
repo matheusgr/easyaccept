@@ -34,17 +34,24 @@ public class ParsedLineReader extends AdapterStream implements
 
 	private char variableStart = '$';
 
+	public ParsedLineReader(Stream stream, char p_defaultStringDelimiter,
+			char p_escape, Map variables) {
+		super(stream);
+		stringDelimiter = defaultStringDelimiter = p_defaultStringDelimiter;
+		escape = defaultEscape = p_escape;
+		this.variables = variables;
+	}
+
 	public ParsedLineReader(Stream stream) {
 		this(stream, defaultStringDelimiter, defaultEscape);
 	}
 
-	public ParsedLineReader(Stream stream, char p_defaultStringDelimiter,
-			char p_escape) {
-		super(stream);
-		stringDelimiter = defaultStringDelimiter = p_defaultStringDelimiter;
-		escape = defaultEscape = p_escape;
-		variables = new HashMap();
+	public ParsedLineReader(Stream stream, char stringDelimiter, char escape) {
+		this(stream, stringDelimiter, escape, new HashMap());
+	}
 
+	public ParsedLineReader(Stream stream, Map variables) {
+		this(stream, defaultStringDelimiter, defaultEscape, variables);
 	}
 
 	public ParsedLine getParsedLine() throws IOException, ParsingException {

@@ -2,6 +2,8 @@ package easyaccept;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import util.ParsingException;
 import easyaccept.script.Script;
@@ -90,8 +92,9 @@ public class EasyAccept {
 	public boolean runAcceptanceTest(Object facade, String testFileName) throws IOException, FileNotFoundException, QuitSignalException, ParsingException {
 		boolean statusOK = false;
 		Script script = null;
+		Map variables = new HashMap();
 		try {
-			script = new Script(testFileName, facade);
+			script = new Script(testFileName, facade, variables);
 			statusOK = script.executeAndCheck();
 			if (!statusOK){
 				System.out.println("Test file " + testFileName + ": " + script.numberOfErrors() + " errors:");
