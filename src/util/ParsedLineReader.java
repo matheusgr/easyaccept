@@ -7,8 +7,6 @@
 package util;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Jacques
@@ -30,12 +28,12 @@ public class ParsedLineReader extends AdapterStream implements
 
 	private static char defaultEscape = '\\';
 
-	private Map variables;
+	private Variables variables;
 
 	private char variableStart = '$';
 
 	public ParsedLineReader(Stream stream, char p_defaultStringDelimiter,
-			char p_escape, Map variables) {
+			char p_escape, Variables variables) {
 		super(stream);
 		stringDelimiter = defaultStringDelimiter = p_defaultStringDelimiter;
 		escape = defaultEscape = p_escape;
@@ -47,10 +45,14 @@ public class ParsedLineReader extends AdapterStream implements
 	}
 
 	public ParsedLineReader(Stream stream, char stringDelimiter, char escape) {
-		this(stream, stringDelimiter, escape, new HashMap());
+		this(stream, stringDelimiter, escape, makeVariables());
 	}
 
-	public ParsedLineReader(Stream stream, Map variables) {
+	private static Variables makeVariables() {
+		return new VariablesImpl();
+	}
+
+	public ParsedLineReader(Stream stream, Variables variables) {
 		this(stream, defaultStringDelimiter, defaultEscape, variables);
 	}
 

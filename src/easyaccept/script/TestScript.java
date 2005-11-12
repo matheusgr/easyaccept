@@ -1,11 +1,11 @@
 package easyaccept.script;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import junit.framework.TestCase;
 import util.ParsingException;
+import util.Variables;
+import util.VariablesImpl;
 import easyaccept.EasyAcceptException;
 import easyaccept.EasyAcceptInternalException;
 import easyaccept.QuitSignalException;
@@ -386,7 +386,7 @@ public class TestScript extends TestCase {
 		}
 	}
 	public void testVariableSubstitutionInTwoStreams() throws EasyAcceptException, EasyAcceptInternalException, QuitSignalException, IOException, ParsingException {
-		Map variables = new HashMap();
+		Variables variables = new VariablesImpl();
 		Script script1 = new Script("src/easyaccept/script/test/script19.txt",
 				new TestFacade(), variables);
 		Result result = script1.getAndExecuteCommand();

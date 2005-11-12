@@ -26,6 +26,8 @@ import util.ParameterTypeConverter;
 import util.ParsedLine;
 import util.ParsedLineReader;
 import util.ParsingException;
+import util.Variables;
+import util.VariablesImpl;
 import easyaccept.EasyAcceptException;
 import easyaccept.EasyAcceptInternalException;
 import easyaccept.EasyAcceptSyntax;
@@ -121,7 +123,7 @@ public class Script implements MultiFileReaderObserver {
 	 * @throws EasyAcceptException
 	 * @throws EasyAcceptInternalException
 	 */
-	public Script(String fileName, Object facade, Map variables)
+	public Script(String fileName, Object facade, Variables variables)
 			throws FileNotFoundException, EasyAcceptException,
 			EasyAcceptInternalException {
 		MultiFileReader mfReader = new MultiFileReader();
@@ -165,7 +167,7 @@ public class Script implements MultiFileReaderObserver {
 	 */
 	public Script(String fileName, Object facade) throws EasyAcceptException,
 			FileNotFoundException, EasyAcceptInternalException {
-		this(fileName, facade, new HashMap());
+		this(fileName, facade, new VariablesImpl());
 	}
 
 	/**

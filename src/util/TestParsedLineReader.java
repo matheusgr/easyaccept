@@ -6,9 +6,6 @@
  */
 package util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import junit.framework.TestCase;
 
 /**
@@ -289,7 +286,7 @@ public class TestParsedLineReader extends TestCase {
 	}
 
 	public void testVariableSubstitution2() throws Exception {
-		Map variables = new HashMap(); 
+		Variables variables = makeVariables(); 
 		ParsedLineReader cpr1 = new ParsedLineReader(new LogicalLineReader(
 				new MultiFileReader(), '#', '\\'), variables);
 		cpr1.addFile("src/util/test/variableSubstitution1.txt");
@@ -322,4 +319,9 @@ public class TestParsedLineReader extends TestCase {
 		assertEquals("p2", param.getName());
 		assertEquals("command1Return", param.getValue());
 	}
+
+	private Variables makeVariables() {
+		return new VariablesImpl();
+	}
+
 }
