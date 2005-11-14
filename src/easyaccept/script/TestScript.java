@@ -385,7 +385,7 @@ public class TestScript extends TestCase {
 			assertEquals("OK", result.getResult());
 		}
 	}
-	public void testVariableSubstitutionInTwoStreams() throws EasyAcceptException, EasyAcceptInternalException, QuitSignalException, IOException, ParsingException {
+	public void testVariableSubstitutionInTwoScripts() throws EasyAcceptException, EasyAcceptInternalException, QuitSignalException, IOException, ParsingException {
 		Variables variables = new VariablesImpl();
 		Script script1 = new Script("src/easyaccept/script/test/script19.txt",
 				new TestFacade(), variables);

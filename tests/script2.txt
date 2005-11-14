@@ -1,0 +1,1 @@
+expect alo echo ${a}

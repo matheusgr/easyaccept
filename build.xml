@@ -33,13 +33,23 @@
 			</classpath>
 		</javac>
 	</target>
-	<target name="jar">
+	<target name="jar" depends="compile">
 		<jar destfile="${easyacceptjar}" basedir="${classes}">
 			<!-- ================================= 
 			<fileset dir="${resources}">
 			</fileset>
 	         ================================= -->
 		</jar>
+	</target>
+	<target name="acceptance-test" depends="jar">
+		<java fork="yes" classname="easyaccept.EasyAccept">
+			<arg value="easyaccept.script.test.TestFacade" />
+			<arg value="tests/script1.txt" />
+			<arg value="tests/script2.txt" />
+			<classpath>
+				<pathelement path="${easyacceptjar}" />
+			</classpath>
+		</java>
 	</target>
 </project>
 
