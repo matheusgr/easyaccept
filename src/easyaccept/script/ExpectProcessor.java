@@ -13,7 +13,9 @@ import easyaccept.EasyAcceptException;
  * <pre>
  * 
  *  
- *        expect &quot;string&quot; command ...
+ *   
+ *         expect &quot;string&quot; command ...
+ *    
  *   
  *  
  * </pre>
@@ -64,8 +66,9 @@ class ExpectProcessor implements Command {
 		//		System.err.println("check " + parsedLine.getParameter(1).getName());
 		if (resultCommand.getException() != null) {
 			throw new EasyAcceptException(script.getFileName(), script
-					.getLineNumber(), "Unexpected error: " + resultCommand.getErrorMessage(),
-					resultCommand.getException());
+					.getLineNumber(), "Unexpected error: "
+					+ resultCommand.getErrorMessage(), resultCommand
+					.getException());
 		} else if (parsedLine.getParameter(1).getValueAsString().equals(
 				resultCommand.getResultAsString())) {
 			return "OK";
