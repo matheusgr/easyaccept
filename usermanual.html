@@ -75,16 +75,16 @@ style="font-family:Verdana">&nbsp;DESCRIPTION</span></b></pre>
     given delimiter. By default, the string delimiter is &quot;.</td>
   </tr>
   <tr>
-    <td valign="top" bgcolor="#D9D9D9" class="Normal"><b><pre>expectDifferent</pre>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><b><pre>expect</pre>
     </b></td>
     <td valign="top" class="Normal">Built-in command which is used to check that a (business
-    logic) command produced a result different from a given string.</td>
+    logic) command produced the expected result.</td>
   </tr>
   <tr>
-    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>expect</b></pre>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>expectDifferent</b></pre>
     </td>
     <td valign="top" class="Normal">Built-in command which is used to check that a (business
-    logic) command produced the expected result.</td>
+    logic) command produced a result different from a given string.</td>
   </tr>
   <tr>
     <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>expectError</b></pre>
@@ -174,7 +174,7 @@ generated different keys in the database:</p>
 <p>A special built-in command can be used to check that a (business logic) command
 produces an error (using an exception). For example:</p>
 
-<pre>expectError &quot;Unacceptable date.&quot; createUser name=&quot;John Doe&quot; birthdate=1957/02/20</pre>
+<pre>expectError &quot;Unacceptable date.&quot; createUser name=&quot;John Doe&quot; birthdate=1957/02/30</pre>
 
 <p>In the above line, a business logic command is called (createUser). EasyAccept will
 accept that it has functioned correctly if it produces an error (an Exception, in
