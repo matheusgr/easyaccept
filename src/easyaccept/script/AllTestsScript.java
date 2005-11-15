@@ -13,6 +13,7 @@ public class AllTestsScript {
 		TestSuite suite = new TestSuite("Test for script");
 		//$JUnit-BEGIN$
 		suite.addTestSuite(TestScript.class);
+		suite.addTestSuite(TestVariableSubstitution.class);
 		suite.addTestSuite(TestExpectErrorProcessor.class);
 		suite.addTestSuite(TestEqualFilesProcessor.class);
 		suite.addTestSuite(TestQuitProcessor.class);

@@ -75,6 +75,12 @@ style="font-family:Verdana">&nbsp;DESCRIPTION</span></b></pre>
     given delimiter. By default, the string delimiter is &quot;.</td>
   </tr>
   <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><b><pre>expectDifferent</pre>
+    </b></td>
+    <td valign="top" class="Normal">Built-in command which is used to check that a (business
+    logic) command produced a result different from a given string.</td>
+  </tr>
+  <tr>
     <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>expect</b></pre>
     </td>
     <td valign="top" class="Normal">Built-in command which is used to check that a (business
@@ -150,7 +156,18 @@ tester. The following script shows how to deal with the situation using variable
 
 <p>The syntax <font face="Courier New">${varName}</font> is substituted by the variable's
 value.</p>
-<p>The scope of a variable is the set of scripts being executed, that is, from the time of variable definition until the end of the current EasyAccept execution.</p>
+
+<p>The scope of a variable is the set of scripts being executed, that is, from the time of
+variable definition until the end of the current EasyAccept execution.</p>
+
+<p>Here is another example that checks whether two users with the same attributes
+generated different keys in the database:</p>
+
+<pre>key1=createUser name=&quot;John Doe&quot; birthdate=1957/02/04</pre>
+
+<pre>key2=createUser name=&quot;John Doe&quot; birthdate=1957/02/04</pre>
+
+<pre>expectDifferent ${key1} echo ${key2}</pre>
 
 <h2>Checking error conditions</h2>
 
@@ -214,8 +231,8 @@ examples of acceptable name=value pairs:</p>
 
 <pre>=value</pre>
 
-<p>In the second case, there is no name; in the third case, the value is null; in the fourth case, the value is
-empty; the fifth case is illegal.</p>
+<p>In the second case, there is no name; in the third case, the value is null; in the
+fourth case, the value is empty; the fifth case is illegal.</p>
 
 <p>In a line, the first name-value pair represents a command to be executed (the value).
 If a name is given, then that variable name will receive the value returned by the

@@ -1,0 +1,3 @@
+expectDifferent a echo hi
+expectDifferent hi echo hi
+

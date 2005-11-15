@@ -39,6 +39,7 @@ public class EasyAcceptSyntax {
 	public static final String[][] internalCommandsArray = {
 			{ "echo", "easyaccept.script.EchoProcessor" },
 			{ "expect", "easyaccept.script.ExpectProcessor" },
+			{ "expectdifferent", "easyaccept.script.ExpectDifferentProcessor" },
 			{ "expecterror", "easyaccept.script.ExpectErrorProcessor" },
 			{ "equalfiles", "easyaccept.script.EqualFilesProcessor" },
 			{ "quit", "easyaccept.script.QuitProcessor" },
