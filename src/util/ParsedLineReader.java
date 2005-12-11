@@ -78,11 +78,13 @@ public class ParsedLineReader extends AdapterStream implements
 	private Parameter getParameter() throws IOException, ParsingException {
 		Parameter param = null;
 		skipWhiteSpace();
+//		System.out.println("going after name");
 		String name = getToken();
 		if (name != null) {
 			Object value = null;
 			int nextChar = read();
 			if (nextChar == '=') {
+//				System.out.println("= was seen: going after value");
 				value = getToken();
 			} else {
 				value = name;
@@ -91,6 +93,7 @@ public class ParsedLineReader extends AdapterStream implements
 					unread(nextChar);
 				}
 			}
+//			System.out.println("name, value = " + name + " " + value);
 			param = new Parameter(name, value);
 		}
 		return param;
@@ -108,7 +111,7 @@ public class ParsedLineReader extends AdapterStream implements
 		int c = read();
 		while (c >= 0 && !Character.isWhitespace((char) c) && c != '=') {
 
-			//System.out.println("->"+(char) c);
+//			System.out.println("->"+(char) c);
 
 			if (sb == null) {
 				sb = new StringBuffer();
@@ -156,7 +159,7 @@ public class ParsedLineReader extends AdapterStream implements
 
 		if (c >= 0) {
 			// character will be part of next token
-			//System.err.println("Unread::"+ (char) c);
+//			System.out.println("Unread::"+ (char) c);
 			unread(c);
 		}
 		//System.err.println("returning token " + (sb == null ? null :
@@ -184,6 +187,9 @@ public class ParsedLineReader extends AdapterStream implements
 		StringBuffer sb = new StringBuffer();
 		int c;
 		while ((c = read()) >= 0 && c != '\n' && c != endDelimiter) {
+			if(c == escape) {
+				c = read();
+			}
 			sb.append((char) c);
 		}
 		if (c != endDelimiter) {

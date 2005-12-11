@@ -2,3 +2,5 @@ param=value1\ 22\ 333\ 4444
 param2=\"
 param=phase\ \ with\ \ \ six\ spaces
 param=doublequotes\ \"\ inside 
+param=" doublequotes "
+param="doublequotes \" inside"

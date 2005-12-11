@@ -46,6 +46,7 @@
 			<arg value="easyaccept.script.test.TestFacade" />
 			<arg value="tests/script1.txt" />
 			<arg value="tests/script2.txt" />
+			<arg value="tests/script3.txt" />
 			<classpath>
 				<pathelement path="${easyacceptjar}" />
 			</classpath>

@@ -196,7 +196,29 @@ public class TestParsedLineReader extends TestCase {
 		assertNotNull(param);
 		assertEquals("param", param.getName());
 		assertEquals("doublequotes \" inside", param.getValue());
-	}
+
+		// param=" doublequotes "
+		parsedLine = cpr.getParsedLine();
+		assertNotNull(parsedLine);
+		assertEquals(1, parsedLine.numberOfParameters());
+		param = parsedLine.getParameter(0);
+		assertNotNull(param);
+		assertEquals("param", param.getName());
+		assertEquals(" doublequotes ", param.getValue());
+		
+		//param="doublequotes \"\ inside"
+		parsedLine = cpr.getParsedLine();
+		assertNotNull(parsedLine);
+		assertEquals(1, parsedLine.numberOfParameters());
+		param = parsedLine.getParameter(0);
+		assertNotNull(param);
+		assertEquals("param", param.getName());
+		assertEquals("doublequotes \" inside", param.getValue());
+
+		parsedLine = cpr.getParsedLine();
+		assertNull(parsedLine);
+		cpr.close();
+}
 
 	public void testVariableSubstitution1() throws Exception {
 		ParsedLineReader cpr = new ParsedLineReader(new LogicalLineReader(

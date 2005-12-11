@@ -57,6 +57,7 @@ public class LogicalLineReader extends AdapterStream {
 		} else {
 			int c = lineBuffer.charAt(0);
 			lineBuffer.deleteCharAt(0);
+//			System.out.println("logic line reader returns " + (char)c);
 			return c;
 		}
 	}
@@ -120,7 +121,7 @@ public class LogicalLineReader extends AdapterStream {
 			}
 		}
 		// have we returned something?
-		//System.err.println("Return:: " + lineBuffer.toString() + " tam:: " + lineBuffer.length());
+//		System.err.println("Return:: <" + lineBuffer.toString() + "> tam:: " + lineBuffer.length());
 		return lineBuffer.length() > 0;
 	}
 	

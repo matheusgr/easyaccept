@@ -1,0 +1,3 @@
+a=echo "alo \" alo"
+stringDelimiter '
+expect 'alo " alo' echo ${a}

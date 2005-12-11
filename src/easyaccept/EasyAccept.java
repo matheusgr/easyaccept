@@ -11,7 +11,7 @@ import easyaccept.script.Script;
 /**
  * The <code>EasyAccept</code> class is the entry point for EasyAccept. The
  * main method allows one to execute acceptance tests using scripts that are
- * executed against a faacde object giving access to the functionality of the
+ * executed against a facade object giving access to the functionality of the
  * software being tested.
  * <p>
  * Here is an example of how a "topogiggio" software product would be tested.
