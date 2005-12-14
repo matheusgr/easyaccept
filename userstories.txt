@@ -122,3 +122,16 @@ Possible syntax
 Acceptance Test:
 
 ----------------------------
+User Story: 013
+Title: pdf file comparison
+Description: have a built-in command to compare pdf files but skipping fields inside the pdf
+that correspond to dates, serial numbers, etc.
+Possible syntax:
+	equalFiles type=pdf file1=xxx file2=yyy
+The command equalFiles file1=xxx file2=yyy would be equivalent to 
+	equalFiles type=binary file1=xxx file2=yyy
+Another possibility would be to compare files considering \r\n and \n to be the same:
+	equalFiles type=text file1=xxx file2=yyy
+Acceptance Test:
+
+----------------------------
