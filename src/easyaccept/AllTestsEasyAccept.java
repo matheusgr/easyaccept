@@ -18,4 +18,5 @@ public class AllTestsEasyAccept {
 		//$JUnit-END$
 		return suite;
 	}
+	
 }

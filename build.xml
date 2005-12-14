@@ -11,7 +11,6 @@
 	<description>
             Framework to write and execute acceptance tests
     </description>
-
 	<property name="home" value="." />
 	<property name="source" value="${home}/src" />
 	<property name="lib" value="${home}/lib" />
