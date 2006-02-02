@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="EasyAcceptTask" basedir="." default="task.init">
+  
+  <property name="home" value="../"/>
+  <property name="source" value="${home}/src"/>
+  <property name="lib" value="${home}/lib"/>
+  <property name="classes" value="${home}/bin"/>
+  <property name="easyacceptjar" value="${lib}/easyaccept.jar"/>
+  <property name="junit" value="${lib}/junit.jar"/>
+  <property name="tests.dir" value="${home}/tests"/>
+  
+  <target name="task.init" description="Taskdef the EasyAccept-Task">
+    <taskdef name="easyaccept" classname="easyaccept.EasyAcceptTask" classpath="${easyacceptjar}"/>
+  </target>
+    
+  <target name="simple.execution.1" description="A simple execution that works" depends="task.init">
+    <easyaccept failonerror="true" facade="easyaccept.script.test.TestFacade">
+      <path>
+        <fileset dir="${home}/tests" includes="script1.txt"/>
+      </path>
+    </easyaccept>
+  </target>
+  
+  <target name="simple.execution.2" description="Another simple execution that works" depends="task.init">
+    <easyaccept failonerror="true" facade="easyaccept.script.test.TestFacade">
+      <path>
+        <fileset dir="${home}/tests" includes="script1.txt"/>
+        <fileset dir="${home}/tests" includes="script2.txt"/>
+        <fileset dir="${home}/tests" includes="script3.txt"/>
+      </path>
+    </easyaccept>
+  </target>
+  
+  <target name="simple.execution.3" description="One more simple execution that works" depends="task.init">
+    <easyaccept failonerror="true" facade="easyaccept.script.test.TestFacade">
+      <path>
+        <fileset dir="${home}/tests" includes="script*.txt"/>
+      </path>
+    </easyaccept>
+  </target>
+  
+  <target name="no.files.1" description="It doesn't specify any script - as failonerror is false, it doesn't fail. But the error is logged." depends="task.init">
+    <easyaccept failonerror="false" facade="easyaccept.script.test.TestFacade"/>
+  </target>
+  
+  <target name="no.files.2" description="It specifies a non existent script - as failonerror is false, it doesn't fail. But the error is logged." depends="task.init">
+    <easyaccept failonerror="false" facade="easyaccept.script.test.TestFacade">
+      <path>
+        <fileset dir="${home}/tests" includes="nonexistentfile.txt"/>
+      </path>
+    </easyaccept>
+  </target>
+  
+  <target name="no.files.3" description="It doesn't specify any script - as failonerror is true, it fails." depends="task.init">
+    <easyaccept failonerror="true" facade="easyaccept.script.test.TestFacade"/>
+  </target>
+  
+  <target name="no.files.4" description="It specifies a non existent script - as failonerror is true, it fails." depends="task.init">
+    <easyaccept failonerror="true" facade="easyaccept.script.test.TestFacade">
+      <fileset dir="${home}/tests" includes="nonexistentfile.txt"/>
+    </easyaccept>
+  </target>
+  
+  <target name="no.facade.1" description="No facade specified. As failonerror is false, it doesn't fail. But the error is logged." depends="task.init">
+    <easyaccept failonerror="false">
+      <path>
+        <fileset dir="${home}/tests" includes="script*.txt"/>
+      </path>
+    </easyaccept>
+  </target>
+  
+  <target name="no.facade.2" description="An invalid Facade specified. As failonerror is false, it doesn't fail. But the error is logged." depends="task.init">
+    <easyaccept failonerror="false" facade="InvalidFacadeClass">
+      <path>
+        <fileset dir="${home}/tests" includes="script*.txt"/>
+      </path>
+    </easyaccept>
+  </target>
+  
+  <target name="no.facade.3" description="No facade specified. As failonerror is true, it fails." depends="task.init">
+    <easyaccept failonerror="true">
+      <path>
+        <fileset dir="${home}/tests" includes="script*.txt"/>
+      </path>
+    </easyaccept>
+  </target>
+  
+  <target name="no.facade.4" description="An invalid Facade specified. As failonerror is true, it fails." depends="task.init">
+    <easyaccept failonerror="true" facade="InvalidFacadeClass">
+      <path>
+        <fileset dir="${home}/tests" includes="script*.txt"/>
+      </path>
+    </easyaccept>
+  </target>
+
+  <target name="failure.property.1" description="Uses the failureproperty attribute." depends="task.init">
+  	<easyaccept failonerror="false" facade="easyaccept.script.test.TestFacade" failureproperty="test.property">
+  		<path>
+  			<fileset dir="${source}/easyaccept/script/test/script4.txt"/>
+  		</path>
+  	</easyaccept>
+  	<fail if="${test.property}" message="Failure expected." />
+  </target>
+
+</project>

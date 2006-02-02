@@ -15,6 +15,7 @@ public class AllTestsEasyAccept {
 		//$JUnit-BEGIN$
 		suite.addTest(util.AllTestsUtil.suite());
 		suite.addTest(easyaccept.script.AllTestsScript.suite());
+		suite.addTestSuite(TestEasyAcceptTask.class);
 		//$JUnit-END$
 		return suite;
 	}
