@@ -16,6 +16,7 @@
 	<property name="lib" value="${home}/lib" />
 	<property name="classes" value="${home}/bin" />
 	<property name="easyacceptjar" value="${lib}/easyaccept.jar" />
+	<property name="ant.test.lib" value="${lib}/ant-testutil.jar"/>	
 	<property name="junit" value="${lib}/junit.jar" />
 
 	<!-- ================================= 
@@ -40,7 +41,16 @@
 	         ================================= -->
 		</jar>
 	</target>
-	<target name="acceptance-test" depends="jar">
+	
+	<target name="easyaccept.task.init" description="Taskdef the EasyAccept-Task">
+	   <taskdef name="easyaccept" classname="easyaccept.EasyAcceptTask" classpath="${easyacceptjar}"/>
+	</target>
+	
+	<target name="acceptance-test" depends="jar,easyaccept.task.init">
+		<echo/>
+		<echo/>
+		<echo message="Running EasyAccept stand-alone"/>
+		<echo/>
 		<java fork="yes" classname="easyaccept.EasyAccept">
 			<arg value="easyaccept.script.test.TestFacade" />
 			<arg value="tests/script1.txt" />
@@ -50,6 +60,17 @@
 				<pathelement path="${easyacceptjar}" />
 			</classpath>
 		</java>
+		<echo/>
+		<echo/>
+		<echo message="Running EasyAccept Ant task"/>
+		<echo/>
+		<easyaccept failonerror="true" failureproperty="easyaccept.ant.task.failed" facade="easyaccept.script.test.TestFacade">
+			<path>
+				<fileset dir="${home}/tests" includes="script*.txt"/>
+			</path>
+		</easyaccept>		
+		<fail if="easyaccept.ant.task.failed" message="EasyAccept ant task failed."/>
 	</target>
+	
 </project>
 

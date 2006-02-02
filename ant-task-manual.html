@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title> EasyAccept Task</title>
+</head>
+
+<body>
+
+<h2><a name="easyaccept">EasyAccept</a></h2>
+
+<h3>Description</h3>
+<p>Runs EasyAccept given the facade to be used and paths to the script files.</p>
+
+</b>Note:</b> This task depends on external libraries not included in the Ant distribution.
+
+<h3>Parameters</h3>
+
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">facade</td>
+    <td valign="top">The Facade class full qualified name.</td>
+
+    <td align="center" valign="top">yes</td>
+  </tr>
+  <tr>
+    <td valign="top">failonerror</td>
+    <td valign="top">Fails build process in case of error. A test failure is not considered an error.</td>
+
+    <td align="center" valign="top">no</td>
+  </tr>
+  <tr>
+    <td valign="top">failureproperty</td>
+    <td valign="top">The name of the property where a "true" value will be stored in case of test failure.</td>
+
+    <td align="center" valign="top">no</td>
+  </tr>
+</table>
+
+<h3>Parameters specified as nested elements</h3>
+
+<h4>path</h4>
+
+<p>The path where the script files will be.</p>
+
+<h3>Examples</h3>
+
+<pre>
+    &lt;easyaccept facade="test.Facade" failureproperty="test.failed"&gt;
+        &lt;path&gt;
+            &lt;fileset dir="${basedir}/test/script*.txt"/&gt;
+        &lt;path&gt;
+    &lt;/easyaccept&gt;
+</pre>
+
+Runs EasyAccept with <i>test.Facade</i> as facade class to be used and all files in <i>${basedir}/test</i> directory that matches to <i>script*txt</i> regex.
+Case any of the tests fails, <i>true</i> will be stored in <i>${test.failed}</i> property.
+
+</body>
+</html>
