@@ -41,6 +41,7 @@ public class EasyAcceptSyntax {
 			{ "expect", "easyaccept.script.ExpectProcessor" },
 			{ "expectdifferent", "easyaccept.script.ExpectDifferentProcessor" },
 			{ "expecterror", "easyaccept.script.ExpectErrorProcessor" },
+			{ "expectwithin", "easyaccept.script.ExpectWithinProcessor" },
 			{ "equalfiles", "easyaccept.script.EqualFilesProcessor" },
 			{ "quit", "easyaccept.script.QuitProcessor" },
 			{ "stringdelimiter", "easyaccept.script.StringDelimiterProcessor" },

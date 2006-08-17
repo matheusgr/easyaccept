@@ -6,6 +6,7 @@
  */
 package util;
 
+
 /**
  * @author Jacques
  * 
@@ -39,6 +40,14 @@ public class Parameter {
 
 	public String getValueAsString() {
 		return value == null ? "null" : value.toString();
+	}
+
+	public double getValueAsDouble() {
+		if(value instanceof Double) {
+			return ((Double)value).doubleValue();
+		} else {
+			return Double.parseDouble(getValueAsString());
+		}
 	}
 
 	/**

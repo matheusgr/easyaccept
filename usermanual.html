@@ -20,9 +20,9 @@ Tests in Java</h1>
 
 <h1 align="center" style="text-align:center">User Manual</h1>
 
-<p>Version 0.10</p>
+<p>Version 0.11</p>
 
-<p>November 15, 2005 </p>
+<p>August 17, 2006</p>
 
 <h1>Requirements</h1>
 
@@ -87,6 +87,12 @@ style="font-family:Verdana">&nbsp;DESCRIPTION</span></b></pre>
     logic) command produced a result different from a given string.</td>
   </tr>
   <tr>
+    <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>expectWithin	</b></pre>
+    </td>
+    <td valign="top" class="Normal">Built-in command which is used to check that a (business
+    logic) command produced the expected floating-point result within a desired precision.</td>
+  </tr>
+  <tr>
     <td valign="top" bgcolor="#D9D9D9" class="Normal"><pre><b>expectError</b></pre>
     </td>
     <td valign="top" class="Normal">Built-in command which is used to check error conditions
@@ -137,10 +143,13 @@ correctly. For example:</p>
 
 <pre>expect &quot;John Doe&quot; getUserName key=key1</pre>
 
-<p>In the above two lines, the first line calls a business logic command. EasyAccept will
-accept that it has functioned correctly if it does not produce an error (an Exception, in
+<pre>expectWithin .01 2345.67 getSalary key=key1</pre>
+
+<p>In the above, the first line calls a business logic command. EasyAccept will accept
+that it has functioned correctly if it does not produce an error (an Exception, in
 programmer parlance). The next line also calls business logic (getUserName with parameter
-key1) but checks that it returned the string &#147;John Doe&#148;.</p>
+key1) but checks that it returned the string &#147;John Doe&#148;. The third line checks
+that the salary is correct, witha procesion of one cent.</p>
 
 <h2>Using variables</h2>
 
@@ -300,6 +309,14 @@ There are two ways of using <i>equalfiles</i> command:</p>
 businessLogicCommand must return a string which is compared with expectedString. The test
 passes if the strings are equal. No errors (exceptions) may occur.</p>
 
+<h3>expectDifferent</h3>
+
+<pre>expectDifferent stringNotExpected businessLogicCommand paramName=paramValue ...</pre>
+
+<p>This command executes the businessLogicCommand passing the specified parameters. The
+businessLogicCommand must return a string which is then compared with expectedString. The
+test passes if the strings are different. No errors (exceptions) may occur.</p>
+
 <h3>expectError</h3>
 
 <pre>expectError expectedErrorString businessLogicCommand paramName=paramValue ...</pre>
@@ -308,6 +325,15 @@ passes if the strings are equal. No errors (exceptions) may occur.</p>
 businessLogicCommand must return an error (produce an exception, in Java) using an error
 string. This string is compared with expectedErrorString. The test passes if the strings
 are equal. If no exceptions are thrown, the test does not pass.</p>
+
+<h3>expectWithin</h3>
+
+<pre>expectWithin precision expectedValue businessLogicCommand paramName=paramValue ...</pre>
+
+<p>This command executes the businessLogicCommand passing the specified parameters. The
+businessLogicCommand must return a value of type double which is compared with expectedValue.
+The test passes if the values are equal, within the given precision. No errors
+(exceptions) may occur.</p>
 
 <h3>stackTrace</h3>
 

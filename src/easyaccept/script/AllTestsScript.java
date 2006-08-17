@@ -18,6 +18,7 @@ public class AllTestsScript {
 		suite.addTestSuite(TestEqualFilesProcessor.class);
 		suite.addTestSuite(TestQuitProcessor.class);
 		suite.addTestSuite(TestStackTraceProcessor.class);
+		suite.addTestSuite(TestExpectWithinProcessor.class);
 		//$JUnit-END$
 		return suite;
 	}

@@ -1,0 +1,16 @@
+# ok
+expectWithin .1 1.0 echo 1.0
+expectWithin .1 1.0 echo 1.0999
+expectWithin .1 1.0 echo 0.9001
+
+# error
+expectWithin .1 1.0 echo 1.10000001
+expectWithin .1 1.0 echo 0.899999
+
+# error
+expectWithin a 1.0 echo 1.0
+expectWithin .1 a echo 1.0
+expectWithin .1 1.0 echo a
+expectWithin "" 1.0 echo 1.0
+expectWithin .1 "" echo 1.0
+expectWithin .1 1.0 echo ""
