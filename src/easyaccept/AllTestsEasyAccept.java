@@ -4,7 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
- * 
+ * Make all EasyAccept tests by using a suite test.
  * @author Jacques
  *
  */

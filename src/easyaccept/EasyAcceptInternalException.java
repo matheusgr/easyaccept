@@ -7,6 +7,8 @@ package easyaccept;
  * @author jacques
  */
 public class EasyAcceptInternalException extends Exception {
+
+	
 	Exception exception = null;
 	int	lineNumber;
 	String errorMessage;

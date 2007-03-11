@@ -12,6 +12,7 @@ import util.ParsedLineReader;
 import easyaccept.script.test.TestFacade;
 
 /**
+ * Test the equal files.
  * @author roberta
  *
  * TODO To change the template for this generated type comment go to
@@ -19,24 +20,26 @@ import easyaccept.script.test.TestFacade;
  */
 public class TestEqualFilesProcessor extends TestCase {
 
-	/*
-	 * @see TestCase#setUp()
+	/**
+	 * The qualFilesProcessor set up
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
 	}
 
-	/*
-	 * @see TestCase#tearDown()
+	/**
+	 * The qualFilesProcessor tear down
 	 */
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-
+	/**
+	 * Execute the test.
+	 * @throws Exception
+	 */
 	public void testExecute() throws Exception {
 		
 		EqualFilesProcessor eqp;
-		
 		eqp = new EqualFilesProcessor();
 		Script script = new Script("src/easyaccept/script/test/scriptEqualFiles01.txt",
 				new TestFacade());
@@ -51,7 +54,6 @@ public class TestEqualFilesProcessor extends TestCase {
 			output= (String) eqp.execute(script,pl);
 			fail();
 		}catch(Exception exc){
-			//System.err.println( "Message:: " + exc.getClass().getName() + " - "+ exc.getMessage());
 			assertTrue(exc.getMessage().indexOf("Expected") != -1);
 			assertTrue(exc.getMessage().indexOf("but was") != -1);
 		}

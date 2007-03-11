@@ -6,7 +6,6 @@ import java.io.IOException;
 import util.ParsingException;
 import util.Variables;
 import util.VariablesImpl;
-import easyaccept.script.Script;
 
 /**
  * The <code>EasyAccept</code> class is the entry point for EasyAccept. The
@@ -73,23 +72,20 @@ public class EasyAccept {
 		} catch (Exception e) {
 			e.printStackTrace();
 			statusCode = 1;
-		}
-
-		// ant doesnt like my doing an exit(0), so ...
-		if (statusCode != 0) {
-			System.exit(statusCode);
-		}
+		}finally{
+			exit(statusCode);		
+		}		
 	}
-
+	
+	
 	/**
 	 * Prints the syntax of the EasyAccept command. Never returns.
 	 */
 	private static void syntax() {
 		System.err
 				.println("Syntax: java easyaccept.EasyAccept facadeClassName testFile [...]");
-		System.exit(1);
+		exit(1);
 	}
-
 	/**
 	 * Runs acceptance tests taken from a script file. The script is transformed
 	 * into calls to the facade object. The results of the tests are printed on
@@ -110,67 +106,45 @@ public class EasyAccept {
 	public boolean runAcceptanceTest(Object facade, String testFileName,
 			Variables variables) throws IOException, FileNotFoundException,
 			QuitSignalException, ParsingException {
-		boolean statusOK = false;
-		Script script = null;
-		try {
-			script = new Script(testFileName, facade, variables);
-			statusOK = script.executeAndCheck();
-			if (!statusOK) {
-				System.out.println("Test file " + testFileName + ": "
-						+ script.numberOfErrors() + " errors:");
-				System.out.println(script.allErrorMessages());
-			} else {
-				System.out.println("Test file " + testFileName + ": "
-						+ script.numberOfTests() + " tests OK");
-			}
-			script.close();
+		
+		EasyAcceptRunner runner = new EasyAcceptRunner(testFileName, facade, variables);
 
-		} catch (QuitSignalException e) {
-			//System.err.println("NUM OF ERR: "+script.numberOfErrors());
-			if (!script.check()) {
-				System.out.println("Test file " + testFileName + ": "
-						+ script.numberOfErrors() + " errors:");
-				System.out.println(script.allErrorMessages());
-			} else {
-				System.out.println("Test file " + testFileName + ": "
-						+ script.numberOfTests() + " tests OK");
-			}
-			throw e;
-		} catch (EasyAcceptException e) {
-			statusOK = false;
-			System.err.println(e.getMessage());
-		} catch (EasyAcceptInternalException e) {
-			statusOK = false;
-			System.err.println(e.getMessage());
-		}
-
-		return statusOK;
+		return runner.runScript();
 	}
-
+	
+	/**
+	 * Exit from EasyAccept by System.exit(0) or System.exit(1) depending on the statusCode.  
+	 * @param statusCode
+	 * 				The code that represents how EasyAccept will be finalized. 
+	 */
+	private static void exit(int statusCode) {
+		System.exit(statusCode);
+	}
+	
 }
-// TODO provide a means of choosing message formatting (como log4J)
+//TODO provide a means of choosing message formatting (como log4J)
 //TODO when EA calls a method in the Facade and an exception is thrown (and EA
-// didn't
-// expect it), nothing is said about WHERE such exception occurred .. For
-// example:
+//didn't
+//expect it), nothing is said about WHERE such exception occurred .. For
+//example:
 //
 //Command: <rollDice firstDieResult="1"(java.lang.Byte)
 //secondDieResult="1"(java.lang.Byte)>, produced error: <This place
 //can't be sold>
 //
-// Would be nice to show the line of Java code and, if possible, the
-// line of acceptance test code
-// TODO pass collections of strings as parameters
+//Would be nice to show the line of Java code and, if possible, the
+//line of acceptance test code
+//TODO pass collections of strings as parameters
 //	ex. command param={ abc, "def, ghi", "{"}
 //TODO javadoc
-// TODO command returning collection
+//TODO command returning collection
 //In the current implementation, a command returns a simple string. When a
-// collection is returned, the expected string
+//collection is returned, the expected string
 //should have the syntax {"s1","s2",...}
 //	where s1 is the string representing the first object in the collection, etc.
 //	EasyAccept must take care to produce a string with this syntax before testing
-// with the expected string whenever a business logic command returns a
-// collection.
+//with the expected string whenever a business logic command returns a
+//collection.
 //	example:
 //	expect {"John Doe","Mary Stuart"} getUserNames age=20
 //	In this case, the getUserNames command returns a collection.
@@ -178,11 +152,11 @@ public class EasyAccept {
 //		each object in a returned collection
 //		example:
 //		expect {"John Doe","Mary Stuart"} whenExtractingAttribute attribute=name
-// getStudents class="abc"
+//getStudents class="abc"
 //	 TODO print command:
 //	a print command that simply executes a command and prints the result returned
-// TODO make test management easier
+//TODO make test management easier
 //	(test definition, packaging, execution, traceability, creation, etc. etc.)
-// this user story must be expanded
-// TODO command to stop on first error to avoid long list of errors. Or maybe a
-// maxErrorToReport
+//this user story must be expanded
+//TODO command to stop on first error to avoid long list of errors. Or maybe a
+//maxErrorToReport

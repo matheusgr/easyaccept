@@ -9,17 +9,23 @@ package util;
 import junit.framework.TestCase;
 
 /**
+ * Provide the Parsed Line Reader tests.
  * @author Jacques
  * 
  * To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Generation - Code and Comments
  */
 public class TestParsedLineReader extends TestCase {
+	
+	/**
+	 * Execute the testCommand1 
+	 * @throws Exception
+	 */
 	public void testCommand1() throws Exception {
 		ParsedLineReader plr = new ParsedLineReader(new LogicalLineReader(
 				new MultiFileReader(), '#', '\\'));
 		plr.addFile("src/util/test/command1.txt");
-
+		System.out.println("ParsedLine: " + plr);
 		ParsedLine parsedLine = plr.getParsedLine();
 		assertNotNull(parsedLine);
 		assertEquals(1, parsedLine.numberOfParameters());
@@ -32,7 +38,10 @@ public class TestParsedLineReader extends TestCase {
 		assertNull(parsedLine);
 		plr.close();
 	}
-
+	/**
+	 * Execute the testCommand2
+	 * @throws Exception
+	 */
 	public void testCommand2() throws Exception {
 		ParsedLineReader cpr = new ParsedLineReader(new LogicalLineReader(
 				new MultiFileReader(), '#', '\\'));
@@ -45,7 +54,6 @@ public class TestParsedLineReader extends TestCase {
 		assertNull(param.getName());
 		assertEquals("one", param.getValue());
 
-		//		System.err.println("test of two");
 		parsedLine = cpr.getParsedLine();
 		assertNotNull(parsedLine);
 		assertEquals(1, parsedLine.numberOfParameters());
@@ -54,7 +62,6 @@ public class TestParsedLineReader extends TestCase {
 		assertNull(param.getName());
 		assertEquals("two", param.getValue());
 
-		//		System.err.println("test of three");
 		parsedLine = cpr.getParsedLine();
 		assertNotNull(parsedLine);
 		assertEquals(1, parsedLine.numberOfParameters());
@@ -99,7 +106,10 @@ public class TestParsedLineReader extends TestCase {
 		assertNull(parsedLine);
 		cpr.close();
 	}
-
+	/**
+	 * Execute the testCommand3 
+	 * @throws Exception
+	 */
 	public void testCommand3() throws Exception {
 		ParsedLineReader cpr = new ParsedLineReader(new LogicalLineReader(
 				new MultiFileReader(), '#', '\\'));
@@ -157,7 +167,10 @@ public class TestParsedLineReader extends TestCase {
 		assertNull(parsedLine);
 		cpr.close();
 	}
-
+	/**
+	 * Execute the escape character test 
+	 * @throws Exception
+	 */
 	public void testEscapeCharacter() throws Exception {
 		ParsedLineReader cpr = new ParsedLineReader(new LogicalLineReader(
 				new MultiFileReader(), '#', '\\'));
@@ -179,7 +192,6 @@ public class TestParsedLineReader extends TestCase {
 		assertEquals("param2", param.getName());
 		assertEquals("\"", param.getValue());
 
-		//param=phase\ with\ six\ spaces
 		parsedLine = cpr.getParsedLine();
 		assertNotNull(parsedLine);
 		assertEquals(1, parsedLine.numberOfParameters());
@@ -188,7 +200,6 @@ public class TestParsedLineReader extends TestCase {
 		assertEquals("param", param.getName());
 		assertEquals("phase  with   six spaces", param.getValue());
 
-		//param=doublequotes \"\ inside
 		parsedLine = cpr.getParsedLine();
 		assertNotNull(parsedLine);
 		assertEquals(1, parsedLine.numberOfParameters());
@@ -197,7 +208,6 @@ public class TestParsedLineReader extends TestCase {
 		assertEquals("param", param.getName());
 		assertEquals("doublequotes \" inside", param.getValue());
 
-		// param=" doublequotes "
 		parsedLine = cpr.getParsedLine();
 		assertNotNull(parsedLine);
 		assertEquals(1, parsedLine.numberOfParameters());
@@ -206,7 +216,6 @@ public class TestParsedLineReader extends TestCase {
 		assertEquals("param", param.getName());
 		assertEquals(" doublequotes ", param.getValue());
 		
-		//param="doublequotes \"\ inside"
 		parsedLine = cpr.getParsedLine();
 		assertNotNull(parsedLine);
 		assertEquals(1, parsedLine.numberOfParameters());
@@ -218,8 +227,11 @@ public class TestParsedLineReader extends TestCase {
 		parsedLine = cpr.getParsedLine();
 		assertNull(parsedLine);
 		cpr.close();
-}
-
+	}
+	/**
+	 * Execute the variable substitution1 
+	 * @throws Exception
+	 */
 	public void testVariableSubstitution1() throws Exception {
 		ParsedLineReader cpr = new ParsedLineReader(new LogicalLineReader(
 				new MultiFileReader(), '#', '\\'));
@@ -304,9 +316,11 @@ public class TestParsedLineReader extends TestCase {
 		assertNotNull(param);
 		assertEquals("p2", param.getName());
 		assertEquals("", param.getValue());
-
 	}
-
+	/**
+	 * Execute the variable substitution2
+	 * @throws Exception
+	 */
 	public void testVariableSubstitution2() throws Exception {
 		Variables variables = makeVariables(); 
 		ParsedLineReader cpr1 = new ParsedLineReader(new LogicalLineReader(
@@ -341,7 +355,11 @@ public class TestParsedLineReader extends TestCase {
 		assertEquals("p2", param.getName());
 		assertEquals("command1Return", param.getValue());
 	}
-
+	/**
+	 * The making variables method return a new VariablesImpl
+	 * @return
+	 * 			The VariablesImpl Map.
+	 */
 	private Variables makeVariables() {
 		return new VariablesImpl();
 	}

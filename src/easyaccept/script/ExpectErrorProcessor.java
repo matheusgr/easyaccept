@@ -56,17 +56,8 @@ class ExpectErrorProcessor implements Command {
 					.getLineNumber(),
 					"Syntax error: expectError <string> <command ...>");
 		}
-
 		Result resultCommand = script.executeCommand(parsedLine.subLine(2));
-
 		if (resultCommand.getException() != null) {
-			//System.err.println("cOMMANDO:
-			// "+parsedLine.getCommandString(EasyAcceptSyntax.defaultStringDelimiter));
-			//System.err.println("Paramentro 1 do commando:
-			// "+parsedLine.getParameter(1).getValueAsString());
-			//System.err.println("Message of the exception thrown by the command:
-			// "+exc.getMessage());
-			//exc.printStackTrace();
 			if (parsedLine.getParameter(1).getValueAsString().equals(
 					resultCommand.getErrorMessage())) {
 				return "OK";
@@ -84,6 +75,5 @@ class ExpectErrorProcessor implements Command {
 					+ parsedLine.getParameter(1).getValueAsString()
 					+ ">, but no error occurred.");
 		}
-
 	}
 }

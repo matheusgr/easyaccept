@@ -16,12 +16,17 @@ import junit.framework.TestCase;
  */
 
 /**
+ * Provide the multi file reader test
  * @author Jacques
  * 
  * To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Generation - Code and Comments
  */
 public class TestMultiFileReader extends TestCase {
+	/**
+	 * Execute the simple read test. 
+	 * @throws IOException
+	 */
 	public void testSimpleRead() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/file1.txt");
@@ -31,6 +36,10 @@ public class TestMultiFileReader extends TestCase {
 		String line2 = mfr.readLine();
 		assertNull(line2);
 	}
+	/**
+	 * Execute the Empty File test
+	 * @throws IOException
+	 */
 	public void testEmptyFile() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/emptyFile.txt");
@@ -38,6 +47,10 @@ public class TestMultiFileReader extends TestCase {
 		assertNull(line1);
 
 	}
+	/**
+	 * Execute the two files test.
+	 * @throws IOException
+	 */
 	public void testTwoFiles() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/file1.txt");
@@ -51,6 +64,10 @@ public class TestMultiFileReader extends TestCase {
 		String line3 = mfr.readLine();
 		assertNull(line3);
 	}
+	/**
+	 * Execute the empty line reader test.
+	 * @throws IOException
+	 */
 	public void testEmptyLineRead() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/file3.txt");
@@ -63,6 +80,10 @@ public class TestMultiFileReader extends TestCase {
 		String line4 = mfr.readLine();
 		assertNull(line4);
 	}
+	/**
+	 * Execute the empty in the middle test
+	 * @throws IOException
+	 */
 	public void testEmptyInTheMiddle() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/file1.txt");
@@ -76,6 +97,9 @@ public class TestMultiFileReader extends TestCase {
 		String line3 = mfr.readLine();
 		assertNull(line3);
 	}
+	/**
+	 * Execute the non existence file test
+	 */
 	public void testNonExistentFile() {
 		MultiFileReader mfr = new MultiFileReader();
 		try {
@@ -84,6 +108,10 @@ public class TestMultiFileReader extends TestCase {
 		} catch (FileNotFoundException ex) {
 		}
 	}
+	/**
+	 * Execute the repeated read test.
+	 * @throws IOException
+	 */
 	public void testRepeatedRead() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/file1.txt");
@@ -95,6 +123,10 @@ public class TestMultiFileReader extends TestCase {
 		String line3 = mfr.readLine();
 		assertNull(line3);
 	}
+	/**
+	 * Execute the read with close test
+	 * @throws IOException
+	 */
 	public void testReadWithClose() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/file1.txt");
@@ -111,6 +143,10 @@ public class TestMultiFileReader extends TestCase {
 		assertEquals("line 1 of file", line4);
 		assertEquals("src/util/test/file1.txt", mfr.getCurrentFileName());
 	}
+	/**
+	 * Execute the char read test
+	 * @throws IOException
+	 */
 	public void testCharRead() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/smallFile.txt");
@@ -122,10 +158,12 @@ public class TestMultiFileReader extends TestCase {
 		assertEquals('1', mfr.read());
 		assertEquals('\n', mfr.read());
 		assertEquals('z', mfr.read());
-		//TODO REVIEW THIS SOLUTION
-		//assertEquals(Stream.END_OF_FILE, mfr.read());
 		assertEquals('\n', mfr.read());
 	}
+	/**
+	 * Execute the get line number test
+	 * @throws IOException
+	 */
 	public void testGetLineNumber() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		mfr.addFile("src/util/test/file1.txt");
@@ -148,7 +186,10 @@ public class TestMultiFileReader extends TestCase {
 		assertEquals(1, mfr.getLineNumber());
 		assertEquals("src/util/test/file1.txt", mfr.getCurrentFileName());
 	}
-	
+	/**
+	 * Execute the multi file observer test
+	 * @throws IOException
+	 */
 	public void testAddMultiFileReaderObserver() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		MFRObserver mfo = new MFRObserver();
@@ -163,7 +204,10 @@ public class TestMultiFileReader extends TestCase {
 		assertNull(line3);
 		assertEquals(2, mfo.getNumCalls()); 
 	}
-
+	/**(
+	 * Execute the Remove Multi File Reader Observer test 
+	 * @throws IOException
+	 */
 	public void testRemoveMultiFileReaderObserver() throws IOException {
 		MultiFileReader mfr = new MultiFileReader();
 		MFRObserver mfo = new MFRObserver();
@@ -182,21 +226,27 @@ public class TestMultiFileReader extends TestCase {
 		assertNull(line3);
 		assertEquals(1, mfo.getNumCalls()); 
 	}
-	
-	
-	
-	
-		
 }
 
+/**
+ * Implements the MultiFileReaderObserver
+ * @author Win Xp
+ *
+ */
 class MFRObserver implements MultiFileReaderObserver {
  
 	private int numcalls; 
-
+	/**
+	 * Increase the call numbers
+	 */
     public void aFileWasClosed(MultiFileEvent event) {
 	    numcalls++;
     }
-    
+    /**
+     * Obtain the call number value
+     * @return
+     * 			The call number
+     */
     public int getNumCalls(){
     	return numcalls;
     }

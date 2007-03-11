@@ -59,11 +59,7 @@ class ExpectDifferentProcessor implements Command {
 					.getLineNumber(),
 					"Syntax error: expectDifferent <string> <command ...>");
 		}
-		//		System.err.println("executing <"
-		//				+ parsedLine.subLine(2).getCommandString() + ">");
 		Result resultCommand = script.executeCommand(parsedLine.subLine(2));
-		//		System.err.println("gave " + resultCommand.getResult());
-		//		System.err.println("check " + parsedLine.getParameter(1).getName());
 		if (resultCommand.getException() != null) {
 			throw new EasyAcceptException(script.getFileName(), script
 					.getLineNumber(), "Unexpected error: "

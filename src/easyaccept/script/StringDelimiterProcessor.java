@@ -52,8 +52,6 @@ public class StringDelimiterProcessor implements Command {
                     .getLineNumber(),
                     "Syntax error: stringdelimiter <character_delimiter>");
         }
-
-        
     	script.setStringDelimiter(delimiter.charAt(beginning));
         return "OK";
     }

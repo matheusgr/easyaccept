@@ -1,0 +1,8 @@
+clearTestObjectsRegister
+createTestObject value=10 function="provide tests1"
+createTestObject value=100 function="provide tests2"
+createTestObject value=1000 function="provide tests3"
+createTestObject value=10000 function="provide tests4"
+createTestObject value=100000 function="provide tests5"
+createTestObject value=1000000 function="provide tests6"
+clearTestObjectsRegister

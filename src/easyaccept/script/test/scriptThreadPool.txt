@@ -1,0 +1,4 @@
+threadPool poolsize=10
+executeScript newThread=true scriptThreadTest1.txt
+executeScript newThread=true scriptThreadTest2.txt
+executeScript newThread=true scriptThread1.txt

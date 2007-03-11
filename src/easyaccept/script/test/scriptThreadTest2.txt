@@ -1,0 +1,7 @@
+clearTestObjectsRegister
+createTestObject value=10 function="provide tests1"
+createTestObject value=20 function="provide tests2"
+createTestObject value=30 function="provide tests3"
+createTestObject value=40 function="provide tests4"
+expect 4 getObjectRegisterSize
+clearTestObjectsRegister

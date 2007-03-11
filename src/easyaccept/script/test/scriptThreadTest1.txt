@@ -1,0 +1,11 @@
+clearTestObjectsRegister
+createTestObject value=1000 function="provide tests1"
+expect 1000 getLastTestObjectValueAsString
+createTestObject value=2000 function="provide tests2"
+expect 2000 getLastTestObjectValueAsString
+createTestObject value=3000 function="provide tests3"
+expect 3000 getLastTestObjectValueAsString
+createTestObject value=4000 function="provide tests4"
+expect 4000 getLastTestObjectValueAsString
+clearTestObjectsRegister
+expect 0 getObjectRegisterSize

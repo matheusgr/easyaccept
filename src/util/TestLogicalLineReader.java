@@ -11,12 +11,17 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 /**
+ * Provide the logical line reader test.
  * @author Jacques
  * 
  * To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Generation - Code and Comments
  */
 public class TestLogicalLineReader extends TestCase {
+	/**
+	 * Execute the simple file test
+	 * @throws IOException
+	 */
 	public void testSimpleFile() throws IOException {
 		Stream llr = new LogicalLineReader(new MultiFileReader(), '#', '\\');
 		llr.addFile("src/util/test/file1.txt");
@@ -26,6 +31,10 @@ public class TestLogicalLineReader extends TestCase {
 		assertNull(line2);
 		llr.close();
 	}
+	/**
+	 * Execute the comment test
+	 * @throws IOException
+	 */
 	public void testComment() throws IOException {
 		Stream llr = new LogicalLineReader(new MultiFileReader(), '#', '\\');
 		llr.addFile("src/util/test/fileWithComments.txt");
@@ -33,6 +42,10 @@ public class TestLogicalLineReader extends TestCase {
 		assertNull(llr.readLine());
 		llr.close();
 	}
+	/**
+	 * Execute the Read test.
+	 * @throws IOException
+	 */
 	public void testRead() throws IOException {
 		Stream llr = new LogicalLineReader(new MultiFileReader(), '#', '\\');
 		llr.addFile("src/util/test/smallFileWithComments.txt");
@@ -40,7 +53,10 @@ public class TestLogicalLineReader extends TestCase {
 		assertEquals('\n', llr.read());
 		assertEquals(Stream.END_OF_FILE, llr.read());
 	}
-	
+	/**
+	 * Execute the line with space test
+	 * @throws IOException
+	 */
 	public void testLineWithSpaces() throws IOException {
 		Stream llr = new LogicalLineReader(new MultiFileReader(), '#', '\\');
 		llr.addFile("src/util/test/fileWithSpaces.txt");
@@ -49,6 +65,10 @@ public class TestLogicalLineReader extends TestCase {
 		assertNull(llr.readLine());
 		llr.close();
 	}
+	/**
+	 * Execute the line with spaces read by character test.
+	 * @throws IOException
+	 */
 	public void testLineWithSpacesReadByCharacter() throws IOException {
 		Stream llr = new LogicalLineReader(new MultiFileReader(), '#', '\\');
 		llr.addFile("src/util/test/fileWithSpaces.txt");
@@ -76,6 +96,10 @@ public class TestLogicalLineReader extends TestCase {
 		assertEquals(Stream.END_OF_FILE, llr.read());
 		llr.close();
 	}
+	/**
+	 * Execute the mixed read test.
+	 * @throws IOException
+	 */
 	public void testMixedRead() throws IOException {
 		Stream llr = new LogicalLineReader(new MultiFileReader(), '#', '\\');
 		llr.addFile("src/util/test/fileWithSpaces.txt");
@@ -87,6 +111,10 @@ public class TestLogicalLineReader extends TestCase {
 		assertNull(llr.readLine());
 		llr.close();
 	}
+	/**
+	 * Execute the unread test
+	 * @throws IOException
+	 */
 	public void testUnread() throws IOException {
 		Stream llr = new LogicalLineReader(new MultiFileReader(), '#', '\\');
 		llr.addFile("src/util/test/fileWithSpaces.txt");
@@ -100,7 +128,10 @@ public class TestLogicalLineReader extends TestCase {
 		assertNull(llr.readLine());
 		llr.close();
 	}
-	
+	/**
+	 * Execute the black slash ramains test.
+	 * @throws IOException
+	 */
 	public void testBackSlashRemains() throws IOException {
 		Stream llr = new LogicalLineReader(new MultiFileReader(), '#', '\\');
 		llr.addFile("src/util/test/backSlashTest.txt");

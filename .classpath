@@ -5,7 +5,7 @@
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="lib" path="lib/ant-testutil.jar"/>
 	<classpathentry kind="lib" path="lib/ant-launcher.jar"/>
-	<classpathentry kind="lib" path="C:/software/eclipse/plugins/org.apache.ant_1.6.5/lib/ant.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Jacques/My Documents/eclipse/EasyAccept/lib/ccl.jar"/>
+	<classpathentry kind="lib" path="C:/Software/eclipse/plugins/org.apache.ant_1.6.5/lib/ant.jar"/>
+	<classpathentry kind="lib" path="lib/ccl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

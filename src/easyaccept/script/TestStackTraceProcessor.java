@@ -35,7 +35,14 @@ public class TestStackTraceProcessor extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-
+	
+	/**
+	 * Execute the unexpected esception test.
+	 * @throws EasyAcceptInternalException
+	 * @throws EasyAcceptException
+	 * @throws IOException
+	 * @throws ParsingException
+	 */
 	public void testUnexpectedException() throws EasyAcceptInternalException,
 			EasyAcceptException, IOException, ParsingException {
 		Script script = new Script(
@@ -127,9 +134,13 @@ public class TestStackTraceProcessor extends TestCase {
 	}
 
 	/**
-	 * @param string
-	 * @param errorMessage
+	 * Inform if a string contains the ather one.
+	 * @param expectedString
+	 * 			The string to be tested.
+	 * @param actualString
+	 * 			The other string to be tested.
 	 * @return
+	 * 			"yes" if contains, "no" otherwise.
 	 */
 	private boolean contains(String expectedString, String actualString) {
 		return actualString.indexOf(expectedString) >= 0;

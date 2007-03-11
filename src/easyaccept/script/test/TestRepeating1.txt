@@ -1,0 +1,2 @@
+executeScript newThread=true TestRepeatingAndThread2.txt
+executeScript newThread=true TestRepeatingAndThread3.txt

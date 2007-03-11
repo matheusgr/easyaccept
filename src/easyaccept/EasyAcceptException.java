@@ -35,6 +35,7 @@ public class EasyAcceptException extends Exception {
 	}
 
 	/**
+	 * Exception constructor.
 	 * @param fileName2
 	 * @param lineNumber2
 	 * @param string

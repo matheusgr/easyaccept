@@ -2,20 +2,17 @@ package easyaccept.script;
 
 /**
  * Stores the results of a single script command after execution.
- * 
- * @author jacques
+ * @author  jacques
  */
 public class Result {
     /**
      * The command that was executed and produced this Result.
      */
     private String command;
-
     /**
      * The object returned by the command when executed.
      */
     private Object result;
-
     /**
      * The exception thrown by the command when executed.
      */
@@ -39,22 +36,23 @@ public class Result {
     }
 
     /**
-     * @return A string representing the command that was executed and produced
-     *         this Result.
-     */
+	 * @return  A string representing the command that was executed and produced  this Result.
+	 * @uml.property  name="command"
+	 */
     public String getCommand() {
         return command;
     }
 
     /**
-     * @return The object returned by the command when executed.
-     */
+	 * @return  The object returned by the command when executed.
+	 * @uml.property  name="result"
+	 */
     public Object getResult() {
         return result;
     }
 
 	/**
-	 * @@return The string equivalent of the object returned by the command when executed.
+	 * @return The string equivalent of the object returned by the command when executed.
 	 */
 	public String getResultAsString() {
 		return result == null ? "null" : result.toString();
@@ -75,8 +73,9 @@ public class Result {
     }
 
     /**
-     * @return The exception thrown by the command when executed.
-     */
+	 * @return  The exception thrown by the command when executed.
+	 * @uml.property  name="exception"
+	 */
     public Throwable getException() {
         return exception;
     }
@@ -88,16 +87,5 @@ public class Result {
     public boolean hasError() {
         return exception != null;
     }
-
-//	/**
-//	 * @param string
-//	 */
-//	public void appendErrorMessage(String message) {
-//		if(errorMessage == null) {
-//			errorMessage = message;
-//		} else {
-//			errorMessage += message;
-//		}
-//	}
 
 }

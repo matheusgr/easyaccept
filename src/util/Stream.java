@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
+ * The Stream interface determine your type behavior .
  * @author Jacques
  *
  * To change the template for this generated type comment go to

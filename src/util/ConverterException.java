@@ -7,6 +7,7 @@
 package util;
 
 /**
+ * Define a converter exception
  * @author jacques
  *
  * TODO To change the template for this generated type comment go to
@@ -15,7 +16,9 @@ package util;
 public class ConverterException extends Exception {
 
 	/**
-	 * @param string
+	 * The Exception constructor
+	 * @param message
+	 * 			The message to be showed.
 	 */
 	public ConverterException(String message) {
 		super(message);

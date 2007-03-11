@@ -1,7 +1,7 @@
 package util;
 
 /**
- * 
+ * Define the parsing Exception.
  * @author jacques
  */
 public class ParsingException extends Exception {

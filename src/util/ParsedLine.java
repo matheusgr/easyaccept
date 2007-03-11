@@ -12,46 +12,64 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * The ParsedLine class. 
  * @author Jacques
  * 
  * To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Generation - Code and Comments
  */
 public class ParsedLine {
-	private List parameters;
-
+	private List<Parameter> parameters;
+	
+	/**
+	 * Construct a ParsedLine object. 
+	 */
 	public ParsedLine() {
-		parameters = new ArrayList();
+		parameters = new ArrayList<Parameter>();
 	}
 
 	/**
+	 * Returns the ParsedLine number of parameters. 
 	 * @return
+	 * 			The number of parameters.
 	 */
 	public int numberOfParameters() {
 		return parameters.size();
 	}
 
 	/**
-	 * @param i
+	 * Get a parameter by the parameters list.
+	 * @param aParameter
+	 * 			The parameter posicion to be back. 
 	 * @return
+	 * 			A parameter.
 	 */
-	public Parameter getParameter(int i) {
-		return (Parameter) parameters.get(i);
+	public Parameter getParameter(int aParameter) {
+		return (Parameter) parameters.get(aParameter);
 	}
 
 	/**
+	 * Add an parameter to the parameters list.
 	 * @param param
+	 * 			The parameter to be added.
 	 */
 	public void addParameter(Parameter param) {
 		parameters.add(param);
 	}
 
+	/**
+	 * Add a parameters collection to the parameters list.
+	 * @param coll
+	 * 			The parameters collection to be added.
+	 */
 	public void addAllParameters(Collection coll) {
 		parameters.addAll(coll);
 	}
 
 	/**
+	 * Obtain the command by a string.  
 	 * @return
+	 * 			The string command.
 	 */
 	public String getCommandString(char stringDelimiter) {
 		StringBuffer sb = new StringBuffer();
@@ -63,26 +81,13 @@ public class ParsedLine {
 				sb.append(" ");
 			}
 		}
-
-		//System.out.println("Complete Value: "+ sb.toString());
 		return sb.toString();
 	}
 
 	/**
-	 * @param stringDelimiter
-	 * @param valueAsString
+	 * Obtain the ParsedLine args values.
 	 * @return
-	 */
-	private String printableString(String string, char stringDelimiter) {
-		if (string.indexOf(" ") >= 0) {
-			return stringDelimiter + string + stringDelimiter;
-		} else {
-			return string;
-		}
-	}
-
-	/**
-	 * @return
+	 * 		The args values.
 	 */
 	public Object[] getArgsValues() {
 		Object[] args = new Object[parameters.size() - 1];
@@ -92,6 +97,11 @@ public class ParsedLine {
 		return args;
 	}
 
+	/**
+	 * Obtain the command args.
+	 * @return
+	 * 			The args.
+	 */
 	public Parameter[] getCommandArgs() {
 		Parameter[] args = new Parameter[parameters.size() - 1];
 		for (int i = 0; i < args.length; i++) {
@@ -101,25 +111,14 @@ public class ParsedLine {
 	}
 
 	/**
-	 * @param i
+	 * 
+	 * @param skip
 	 * @return
 	 */
 	public ParsedLine subLine(int skip) {
 		ParsedLine sub = new ParsedLine();
 		sub.addAllParameters(parameters.subList(skip, numberOfParameters()));
 		return sub;
-	}
-
-	/**
-	 * @return
-	 */
-	public Parameter[] getParameters(int from) {
-		Parameter[] args = new Parameter[parameters.size() - 1];
-		for (int i = from; i < args.length; i++) {
-			//args[i] = parameters.get(i+1);
-		}
-
-		return (Parameter[]) parameters.toArray();
 	}
 
 }

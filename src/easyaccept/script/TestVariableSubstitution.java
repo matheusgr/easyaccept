@@ -12,12 +12,18 @@ import easyaccept.QuitSignalException;
 import easyaccept.script.test.TestFacade;
 
 /**
+ * Provide the variable substitution tests.
  * @author Jacques
  *
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class TestVariableSubstitution extends TestCase {
+	
+	/**
+	 * Execute the variable substitution 1.
+	 * @throws Exception
+	 */
 	public void testVariableSubstitution1() throws Exception {
 		Script script = new Script("src/easyaccept/script/test/script13.txt",
 				new TestFacade());
@@ -35,7 +41,10 @@ public class TestVariableSubstitution extends TestCase {
 		script.close();
 
 	}
-
+	/**
+	 * Execute the variable substitution 2.
+	 * @throws Exception
+	 */
 	public void testVariableSubstitution2() throws Exception {
 		Script script = new Script("src/easyaccept/script/test/script14.txt",
 				new TestFacade());
@@ -54,7 +63,10 @@ public class TestVariableSubstitution extends TestCase {
 		script.close();
 
 	}
-
+	/**
+	 * Execute the variable substitution 3.
+	 * @throws Exception
+	 */
 	public void testVariableSubstitution3() throws Exception {
 		Script script = new Script("src/easyaccept/script/test/script15.txt",
 				new TestFacade());
@@ -78,7 +90,10 @@ public class TestVariableSubstitution extends TestCase {
 		assertFalse(result.hasError());
 		script.close();
 	}
-
+	/**
+	 * Execute the variable substitution 4.
+	 * @throws Exception
+	 */
 	public void testVariableSubstitution4() throws EasyAcceptException,
 			EasyAcceptInternalException, QuitSignalException, IOException,
 			ParsingException {
@@ -96,7 +111,10 @@ public class TestVariableSubstitution extends TestCase {
 		assertFalse(result.hasError());
 		script.close();
 	}
-
+	/**
+	 * Execute the variable substitution 5.
+	 * @throws Exception
+	 */
 	public void testVariableSubstitution5() throws EasyAcceptException, EasyAcceptInternalException, QuitSignalException, IOException, ParsingException {
 		Script script = new Script("src/easyaccept/script/test/script17.txt",
 				new TestFacade());
@@ -104,10 +122,17 @@ public class TestVariableSubstitution extends TestCase {
 		Result result = script.getAndExecuteCommand();
 		assertNotNull(result);
 		assertEquals("expect a=b command1", result.getCommand());
-//		assertEquals("", result.getErrorMessage());
 		assertFalse(result.hasError());
 		script.close();
 	}
+	/**
+	 * Execute the variable substitution in two scripts.
+	 * @throws EasyAcceptException
+	 * @throws EasyAcceptInternalException
+	 * @throws QuitSignalException
+	 * @throws IOException
+	 * @throws ParsingException
+	 */
 	public void testVariableSubstitutionInTwoScripts() throws EasyAcceptException, EasyAcceptInternalException, QuitSignalException, IOException, ParsingException {
 		Variables variables = new VariablesImpl();
 		Script script1 = new Script("src/easyaccept/script/test/script19.txt",

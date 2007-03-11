@@ -11,12 +11,16 @@ import util.StringUtil;
 import easyaccept.EasyAcceptException;
 
 /**
+ * Provide the StackTrace command.
  * @author jacques
  * 
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
 public class StackTraceProcessor implements Command {
+	/**
+	 * Execute the StackTrace command.
+	 */
 	public Object execute(Script script, ParsedLine parsedLine)
 			throws EasyAcceptException {
 		if (parsedLine.numberOfParameters() < 2) {

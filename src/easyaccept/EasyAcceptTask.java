@@ -2,19 +2,15 @@ package easyaccept;
 
 import java.util.Iterator;
 import java.util.Vector;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.Path;
-
 import util.Variables;
 import util.VariablesImpl;
 
 /**
  * This class represents an Ant task that executes EasyAccept.
- * 
- * @author Guilherme Mauro Germoglio - germoglio@gmail.com
- * 
+ * @author  Guilherme Mauro Germoglio - germoglio@gmail.com
  */
 public class EasyAcceptTask extends Task {
 
@@ -50,7 +46,7 @@ public class EasyAcceptTask extends Task {
 	/**
 	 * The paths to be used by EasyAccept.
 	 */
-	private Vector paths = new Vector();
+	private Vector<Path> paths = new Vector();
 
 	/**
 	 * The property to be set when there's a failure during the tests.
@@ -59,9 +55,8 @@ public class EasyAcceptTask extends Task {
 
 	/**
 	 * Sets the value of 'failonerror' attribute.
-	 * 
-	 * @param failonerror
-	 *            The attribute value.
+	 * @param failonerror  The attribute value.
+	 * @uml.property  name="failonerror"
 	 */
 	public void setFailonerror(boolean failonerror) {
 		this.failonerror = failonerror;
@@ -69,10 +64,8 @@ public class EasyAcceptTask extends Task {
 
 	/**
 	 * Sets the value of 'failureproperty' attribute.
-	 * 
-	 * @param failureproperty
-	 *            The name of the property to be declared and set
-	 *            <code>true</code> when there's an failure during tests.
+	 * @param failureproperty  The name of the property to be declared and set  <code>true</code> when there's an failure during tests.
+	 * @uml.property  name="failureproperty"
 	 */
 	public void setFailureproperty(String failureproperty) {
 		this.failureproperty = failureproperty;
@@ -80,9 +73,8 @@ public class EasyAcceptTask extends Task {
 
 	/**
 	 * Sets the value of 'facade' attribute.
-	 * 
-	 * @param facade
-	 *            The attribute value.
+	 * @param facade  The attribute value.
+	 * @uml.property  name="facade"
 	 */
 	public void setFacade(String facade) {
 		this.facade = facade;
@@ -98,46 +90,23 @@ public class EasyAcceptTask extends Task {
 		paths.add(path);
 	}
 
+	/**
+	 * Do the execution.
+	 */
 	public void execute() {
+		
 		if (validate()) {
-
 			EasyAccept tester = new EasyAccept();
 			Class facadeClass = null;
 			Object facadeObj = null;
-			
 			try {
 				facadeClass = Class.forName(facade);
 				facadeObj = facadeClass.newInstance();
 			} catch (Exception e) {
 				throw new BuildException("Invalid Facade class: " + facade);
 			}
-			
-			Variables variables = new VariablesImpl();
-
 			int statusCode = 0;
-
-			Iterator pathIterator = paths.iterator();
-
-			while (pathIterator.hasNext()) {
-				Path path = (Path) pathIterator.next();
-				String[] files = path.list();
-
-				for (int k = 0; k < files.length; k++) {
-					String file = files[k];
-					try {
-						if (!tester.runAcceptanceTest(facadeObj, file, variables)) {
-							statusCode = 1;
-						}
-					} catch (QuitSignalException e1) {
-						getProject().log(e1.getMessage());
-						statusCode = 0;
-					} catch (Exception e) {
-						getProject().log(e.getMessage());
-						statusCode = 1;
-					}
-				}
-			}
-
+			statusCode = runForEachPath(statusCode,tester,facadeObj);	
 			if (statusCode != 0) {
 				if (failureproperty != null) {
 					getProject().setNewProperty(failureproperty, TRUE_VALUE);
@@ -145,6 +114,43 @@ public class EasyAcceptTask extends Task {
 			}
 
 		}
+	}
+
+	/**
+	 * Execute for each path
+	 * @param statusCode
+	 * 			The code expressing the execution correctness. 
+	 * @param tester
+	 * 			The object that runs the acceptance tests.
+	 * @param facadeObj
+	 * 			The facade
+	 * @return
+	 * 			An int expressing the execution correctness.
+	 */
+	private int runForEachPath(int statusCode, EasyAccept tester, Object facadeObj) {
+		
+		Iterator pathIterator = paths.iterator();
+		Variables variables = new VariablesImpl();
+		
+		while (pathIterator.hasNext()) {
+			Path path = (Path) pathIterator.next();
+			String[] files = path.list();
+			for (int k = 0; k < files.length; k++) {
+				String file = files[k];
+				try {
+					if (!tester.runAcceptanceTest(facadeObj, file, variables)) {
+						statusCode = 1;
+					}
+				} catch (QuitSignalException e1) {
+					getProject().log(e1.getMessage());
+					statusCode = 0;
+				} catch (Exception e) {
+					getProject().log(e.getMessage());
+					statusCode = 1;
+				}
+			}
+		}
+		return statusCode;
 	}
 
 	/**
@@ -159,22 +165,19 @@ public class EasyAcceptTask extends Task {
 	 * @throws BuildException When failonerror is <code>true</code> and the task is invalid.
 	 */
 	private boolean validate() {
-		// facade attribute exists?
+		
 		if (facade == null) {
-			// no
 			if (failonerror) {
 				throw new BuildException(NO_FACADE_SPECIFIED_MSG);
 			} else {
 				getProject().log(NO_FACADE_SPECIFIED_MSG);
 				return false;
 			}
-			// yes
 		} else {
 			if (!validateFacade(facade)) {
 				return false;
 			}
 		}
-
 		if (paths.size() < 1) {
 			if (failonerror) {
 				throw new BuildException(NO_FILES_FOUND_MSG);
@@ -187,7 +190,6 @@ public class EasyAcceptTask extends Task {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -205,7 +207,6 @@ public class EasyAcceptTask extends Task {
 			Path path = (Path) pathIt.next();
 			numberOfFiles += path.list().length;
 		}
-		
 		if (numberOfFiles == 0) {
 			if (failonerror) {
 				throw new BuildException(NO_FILES_FOUND_MSG);

@@ -12,6 +12,7 @@ import util.ParsedLineReader;
 import easyaccept.script.test.TestFacade;
 
 /**
+ * Provide the expect erros test. 
  * @author roberta
  *
  * TODO To change the template for this generated type comment go to
@@ -19,20 +20,23 @@ import easyaccept.script.test.TestFacade;
  */
 public class TestExpectErrorProcessor extends TestCase {
 
-	/*
-	 * @see TestCase#setUp()
+	/**
+	 * The set up method
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
 	}
 
-	/*
-	 * @see TestCase#tearDown()
+	/**
+	 * The tear down method
 	 */
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-	
+	/**
+	 * Execute the test.
+	 * @throws Exception
+	 */
 	public void testExecute() throws Exception{
 			ExpectErrorProcessor execp;
 			execp = new ExpectErrorProcessor();

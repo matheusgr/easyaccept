@@ -1,19 +1,14 @@
-/*
- * Project: topogiggio
- * Script.java 
- *
- * Copyright 2004 Universidade federal da Campina Grande. All rights reserved.
- */
-
 package easyaccept;
 
 /**
- * The <code>EasyAcceptSyntax</code> class ...
+ * The <code>EasyAcceptSyntax</code> class represents details of the 
+ * EasyAccept syntax, as well it's internal commands.
  * 
  * @author roberta
  */
 
 public class EasyAcceptSyntax {
+	
 	/**
 	 * The character serving as default comment character in script files
 	 */
@@ -45,6 +40,10 @@ public class EasyAcceptSyntax {
 			{ "equalfiles", "easyaccept.script.EqualFilesProcessor" },
 			{ "quit", "easyaccept.script.QuitProcessor" },
 			{ "stringdelimiter", "easyaccept.script.StringDelimiterProcessor" },
-			{ "stacktrace", "easyaccept.script.StackTraceProcessor" }, };
+			{ "stacktrace", "easyaccept.script.StackTraceProcessor" },
+			{ "executescript", "easyaccept.script.ExecuteScriptProcessor" },
+			{ "threadpool", "easyaccept.script.ThreadPoolProcessor" },
+			{ "repeat", "easyaccept.script.RepeatProcessor" },
+			};
 
 }

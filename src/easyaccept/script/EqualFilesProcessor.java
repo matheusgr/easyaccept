@@ -19,6 +19,7 @@ import easyaccept.EasyAcceptException;
 
 
 /**
+ * Provide the aqual files command.
  * @author roberta
  *
  * TODO To change the template for this generated type comment go to
@@ -26,8 +27,8 @@ import easyaccept.EasyAcceptException;
  */
 public class EqualFilesProcessor  implements Command{
 
-	/* (non-Javadoc)
-	 * @see easyaccept.script.Command#execute(easyaccept.script.Script, easyaccept.util.ParsedLine)
+	/**
+	 * Execute the equal files command.
 	 */
 	public Object execute(Script script, ParsedLine parsedLine) throws Exception {
 		
@@ -37,25 +38,28 @@ public class EqualFilesProcessor  implements Command{
                     "Syntax error: equalfiles <fileOK> <fileToTest>");
         }
     	Parameter [] param = parsedLine.getCommandArgs(); 
-
     	try{
-    		
     		equalFiles(param[0].getValueAsString(),
     				param[1].getValueAsString());
-    		    		
     	}catch(EasyAcceptException exc){
-    		//cause
     		throw new EasyAcceptException(script.getFileName(), script
                     .getLineNumber(), exc.getMessage());    		
     	}	
         return "OK";  
 	}
-
+	/**
+	 * Make the equal files test. 
+	 * @param fileOK
+	 * 				A file to be compared.
+	 * @param fileToTest
+	 * 				A file to be testes as equal the other one.
+	 * @throws IOException
+	 * @throws EasyAcceptException
+	 */
     private static void equalFiles(String fileOK, String fileToTest) throws IOException, EasyAcceptException { 
        		
     	LineNumberReader lineReaderOK = null;
        	LineNumberReader lineReaderToTest = null;
-       	
        	try {
        	    Reader readerOK = new FileReader( new File(fileOK) );
        	    lineReaderOK = new LineNumberReader( readerOK );
@@ -65,20 +69,17 @@ public class EqualFilesProcessor  implements Command{
        	      
        		String lineOK = lineReaderOK.readLine();
        		String lineToTest = lineReaderToTest.readLine();
-       		
-       		while( (lineOK != null) && (lineToTest!= null) ) 
-   		    { 
-       			if ( ! (lineOK.trim().equals(lineToTest.trim())) ) 
-       			{
+     
+       		while( (lineOK != null) && (lineToTest!= null) ){ 
+       			if ( ! (lineOK.trim().equals(lineToTest.trim())) ) {
+       			
        				throw new EasyAcceptException( "File diferences at line "+ lineReaderOK.getLineNumber()+". Expected <"
                             + lineOK.trim()+ ">, but was "
                             +  "<"+lineToTest.trim()+">");   
        			}
-       	       
        			lineOK = lineReaderOK.readLine();
        	        lineToTest = lineReaderToTest.readLine();
        	    }
-       		
        		if (lineOK == null && lineToTest != null) {
        			throw new EasyAcceptException( "File diferences at line "+ lineReaderOK.getLineNumber()+". Expected the end of file was but"
        					+" extra line was found "+"< "+lineToTest.trim()+">");
@@ -86,7 +87,6 @@ public class EqualFilesProcessor  implements Command{
        			throw new EasyAcceptException( "File diferences at line "+ lineReaderOK.getLineNumber()+". Expected <"+
                           lineOK.trim()+">, but the end of file was found. ");
            	}else if (lineOK == null && lineToTest == null) {
-   				// files are equal
    		    }
        	} finally{
        			if(lineReaderOK!= null){
@@ -96,8 +96,5 @@ public class EqualFilesProcessor  implements Command{
        				lineReaderToTest.close();
        			}
        	}
-       	
    	}    
-
-	
 }

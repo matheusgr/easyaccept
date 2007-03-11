@@ -12,6 +12,7 @@ import easyaccept.QuitSignalException;
 
 
 /**
+ * Provide the Quit command.
  * @author roberta
  *
  * TODO To change the template for this generated type comment go to
@@ -19,8 +20,8 @@ import easyaccept.QuitSignalException;
  */
 public class QuitProcessor  implements Command{
 
-	/* (non-Javadoc)
-	 * @see easyaccept.script.Command#execute(easyaccept.script.Script, easyaccept.util.ParsedLine)
+	/**
+	 * Execute the Quit command.
 	 */
 	public Object execute(Script script, ParsedLine parsedLine) throws Exception {
 		
@@ -29,10 +30,8 @@ public class QuitProcessor  implements Command{
                     .getLineNumber(),
                    "Syntax error: quit");
         }
-    	
     	throw new QuitSignalException(script.getFileName(), script
                 .getLineNumber(), "Quit command was found.\nTerminating EasyAccept...");
-    	
 	}
     	
 }

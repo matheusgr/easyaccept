@@ -9,6 +9,7 @@ package easyaccept.script;
 import util.ParsedLine;
 
 /**
+ * Provide the Echo command.
  * @author Jacques
  *
  * TODO To change the template for this generated type comment go to
@@ -16,8 +17,8 @@ import util.ParsedLine;
  */
 public class EchoProcessor implements Command {
 
-	/* (non-Javadoc)
-	 * @see easyaccept.script.Command#execute(easyaccept.script.Script, util.ParsedLine)
+	/**
+	 * Execute the echo command.
 	 */
 	public Object execute(Script script, ParsedLine parsedLine) throws Exception {
 		StringBuffer sb = new StringBuffer();

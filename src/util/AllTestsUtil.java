@@ -10,13 +10,18 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
+ * Provide all util package tests.
  * @author Jacques
  *
  * To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class AllTestsUtil {
-
+	/**
+	 * Create a test suite
+	 * @return
+	 * 			The test suite.
+	 */
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for util");
 		//$JUnit-BEGIN$

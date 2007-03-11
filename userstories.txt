@@ -135,3 +135,13 @@ Another possibility would be to compare files considering \r\n and \n to be the 
 Acceptance Test:
 
 ----------------------------
+
+User Story: 014
+Title: createObject command
+Description:
+Implement the createObject command, which instantiates an object from a class in the code being tested.
+This command should be used with discretion if the client is a non-technical person, or tests might become too confusing for him.
+Possible syntax
+	customer1=createobject class=project.Customer name="John Doe"
+	customerPays customer=${customer1} value=1000
+
