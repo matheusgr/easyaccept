@@ -15,8 +15,6 @@ import easyaccept.script.test.TestFacade;
  * Provide the variable substitution tests.
  * @author Jacques
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class TestVariableSubstitution extends TestCase {
 	

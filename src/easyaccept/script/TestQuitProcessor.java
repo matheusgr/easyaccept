@@ -14,8 +14,6 @@ import easyaccept.script.test.TestFacade;
  * Provide the Quit test.
  * @author roberta
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class TestQuitProcessor extends TestCase {
 
