@@ -8,7 +8,7 @@ Acceptance Test:
 ----------------------------
 
 User Story: 001
-Title: Capture/repaly funcionality
+Title: Capture/replay funcionality
 Description:
 EastAccept should generate test scripts when a client is using the System 
 under Test (SUT). EasyAccept should capture clients actions and record 
