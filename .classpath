@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry output="bin" kind="src" path="src"/>
-	<classpathentry sourcepath="JRE_SRC" kind="var" path="JRE_LIB"/>
+	<classpathentry kind="src" output="bin" path="src"/>
+	<classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="lib" path="lib/ant-testutil.jar"/>
 	<classpathentry kind="lib" path="lib/ant-launcher.jar"/>
-	<classpathentry kind="lib" path="C:/Software/eclipse/plugins/org.apache.ant_1.6.5/lib/ant.jar"/>
 	<classpathentry kind="lib" path="lib/ccl.jar"/>
+	<classpathentry kind="lib" path="lib/ant.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
