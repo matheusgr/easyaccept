@@ -44,6 +44,7 @@ public class EasyAcceptSyntax {
 			{ "executescript", "easyaccept.script.ExecuteScriptProcessor" },
 			{ "threadpool", "easyaccept.script.ThreadPoolProcessor" },
 			{ "repeat", "easyaccept.script.RepeatProcessor" },
+			{ "print", "easyaccept.script.PrintProcessor" },
 			};
 
 }

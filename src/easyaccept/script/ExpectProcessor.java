@@ -59,15 +59,21 @@ class ExpectProcessor implements Command {
 					.getLineNumber(),
 					"Syntax error: expect <string> <command ...>");
 		}
+		
 		Result resultCommand = script.executeCommand(parsedLine.subLine(2));
+		
 		if (resultCommand.getException() != null) {
+			Throwable exception = resultCommand.getException();
+			
 			throw new EasyAcceptException(script.getFileName(), script
-					.getLineNumber(), "Unexpected error: "
-					+ resultCommand.getErrorMessage(), resultCommand
-					.getException());
+					.getLineNumber(), "Unexpected error, "
+					+ exception.getClass() + ": "
+					+ resultCommand.getErrorMessage(), exception);
+			
 		} else if (parsedLine.getParameter(1).getValueAsString().equals(
 				resultCommand.getResultAsString())) {
 			return "OK";
+		
 		} else {
 			throw new EasyAcceptException(script.getFileName(), script
 					.getLineNumber(), "Expected <"

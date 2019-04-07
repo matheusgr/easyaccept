@@ -1,0 +1,14 @@
+todo:
+    - [] US001 Capture/replay funcionality
+    - [] US003 Choose log format
+    - [] US004 Exception Handling of Facade methods
+    - [] US006 A method should receive a collections of strings as argument in scripts.
+    - [] US007 A method should return a collections of strings as argument in scripts.
+    - [] US008 Improve Javadoc Comments
+    - [] US009 ??
+    - [x] US010 Create a print command
+    - [] US011 Make test management easier
+    - [] US012 Using beans
+    - [] US013 Pdf file comparison
+
+// This user stories are descripted in 'userstories.txt'
