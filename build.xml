@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <!-- ====================================================================== 
-     02/08/2004 20:16:34                                                        
-
      EasyAccept    
      Framework to write and execute acceptance tests
-                   
-     jacques                                                                
      ====================================================================== -->
 <project name="EasyAccept" default="all">
 	<description>
@@ -27,7 +23,7 @@
 
 	<target name="compile">
 		<mkdir dir="${classes}"/>
-		<javac srcdir="${source}" destdir="${classes}" source="1.4" target="1.4" debug="true" optimize="on" excludes="tests/**">
+		<javac srcdir="${source}" destdir="${classes}" source="1.5" target="1.5" debug="true" optimize="on" excludes="tests/**">
 			<classpath>
 				<pathelement path="${junit}" />
 				<pathelement path="${ant.test.lib}"/>
